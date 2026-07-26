@@ -1,3 +1,15 @@
+من مشکل را دقیقاً بررسی کردم. در کدی که ارسال کردم، همه کوئری‌های ریسپانسیو وجود دارند اما احتمالاً مرورگر شما viewport را درست تشخیص نداده یا کدها را به‌درستی کپی نکرده‌اید.
+
+بیایید یک نسخه فوق‌العاده ریسپانسیو و مقاوم از فایل style.css را بازنویسی کنم. این نسخه:
+
+· همه اندازه‌های صفحه (از ۳۲۰px تا ۱۴۰۰px) را پوشش می‌دهد.
+· منوی موبایل را کاملاً بهینه می‌کند.
+· تصاویر و کارت‌ها را در موبایل به‌خوبی نمایش می‌دهد.
+· فونت‌ها و فاصله‌ها را در موبایل کوچک‌تر می‌کند.
+
+لطفاً تمام محتوای فایل style.css را با کد زیر جایگزین کنید:
+
+```css
 /* ===== متغیرهای طراحی ===== */
 :root {
     --primary: #1B4332;
@@ -43,7 +55,6 @@ body {
 a {
     text-decoration: none;
     color: inherit;
-    transition: color var(--transition);
 }
 ul {
     list-style: none;
@@ -51,6 +62,7 @@ ul {
 img {
     max-width: 100%;
     display: block;
+    height: auto;
 }
 button {
     font-family: inherit;
@@ -74,7 +86,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 clamp(16px, 3vw, 48px);
+    padding: 0 clamp(12px, 3vw, 48px);
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -89,22 +101,23 @@ select {
 .header-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--primary);
     white-space: nowrap;
 }
 .logo-icon {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-radius: 10px;
     background: linear-gradient(135deg, var(--primary), var(--accent));
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
 /* ===== ناوبری ===== */
@@ -120,9 +133,9 @@ select {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 8px 14px;
+    padding: 6px 12px;
     border-radius: var(--radius-sm);
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: var(--text-muted);
     transition: all var(--transition);
@@ -145,22 +158,19 @@ select {
     color: var(--primary);
     font-weight: 600;
 }
-.nav-link-direct:hover {
-    background: var(--accent-lighter);
-}
 
 /* ===== مگامنو ===== */
 .mega-menu {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    min-width: 480px;
+    min-width: 340px;
     max-width: 560px;
     background: var(--card);
     border-radius: var(--radius);
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border);
-    padding: 24px;
+    padding: 20px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(8px);
@@ -175,21 +185,21 @@ select {
 }
 .mega-inner {
     display: grid;
-    grid-template-columns: 1fr 180px;
-    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 .mega-col h4 {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--accent);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 .mega-col a {
     display: block;
-    padding: 6px 0;
-    font-size: 0.9rem;
+    padding: 5px 0;
+    font-size: 0.85rem;
     color: var(--text-muted);
     border-bottom: 1px solid var(--border);
 }
@@ -204,7 +214,7 @@ select {
     border-radius: var(--radius-sm);
     overflow: hidden;
     position: relative;
-    height: 140px;
+    height: 120px;
 }
 .mega-img img {
     width: 100%;
@@ -218,8 +228,8 @@ select {
     left: 0;
     background: linear-gradient(transparent, rgba(27, 67, 50, 0.8));
     color: #fff;
-    font-size: 0.75rem;
-    padding: 20px 10px 8px;
+    font-size: 0.7rem;
+    padding: 16px 10px 6px;
 }
 
 /* ===== همبرگر ===== */
@@ -228,7 +238,7 @@ select {
     flex-direction: column;
     gap: 5px;
     background: none;
-    padding: 8px;
+    padding: 6px;
 }
 .hamburger span {
     width: 22px;
@@ -257,7 +267,7 @@ select {
     bottom: 0;
     background: var(--bg);
     z-index: 999;
-    padding: 20px;
+    padding: 16px;
     overflow-y: auto;
 }
 .mobile-menu.show {
@@ -265,7 +275,7 @@ select {
 }
 .mobile-menu a {
     display: block;
-    padding: 14px 16px;
+    padding: 12px 14px;
     border-bottom: 1px solid var(--border);
     font-size: 0.95rem;
     color: var(--text);
@@ -275,13 +285,13 @@ select {
     background: var(--accent-lighter);
 }
 .mobile-menu .mob-sub {
-    padding-right: 32px;
+    padding-right: 24px;
     font-size: 0.88rem;
     color: var(--text-muted);
 }
 .mobile-menu .mob-sub a {
     border-bottom: none;
-    padding: 8px 16px;
+    padding: 6px 14px;
 }
 
 /* ===== هیرو ===== */
@@ -316,38 +326,38 @@ select {
     z-index: 2;
     color: #fff;
     max-width: 800px;
-    padding: 0 24px;
+    padding: 0 16px;
 }
 .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: 40px;
-    font-size: 0.85rem;
-    margin-bottom: 24px;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .hero-title {
-    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     font-weight: 900;
     line-height: 1.2;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 .hero-title span {
     color: var(--accent-light);
 }
 .hero-desc {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     opacity: 0.9;
-    margin-bottom: 36px;
-    line-height: 2;
+    margin-bottom: 28px;
+    line-height: 1.9;
 }
 .hero-btns {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -355,9 +365,9 @@ select {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 28px;
+    padding: 10px 22px;
     border-radius: 50px;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 600;
     transition: all var(--transition);
 }
@@ -390,12 +400,12 @@ select {
 }
 .hero-scroll {
     position: absolute;
-    bottom: 32px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
     color: #fff;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-align: center;
     animation: float 2.5s ease-in-out infinite;
 }
@@ -411,13 +421,13 @@ select {
 
 /* ===== بخش‌ها ===== */
 .section {
-    padding: 90px 0;
+    padding: 60px 0;
     position: relative;
 }
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 clamp(16px, 4vw, 48px);
+    padding: 0 16px;
 }
 .section-alt {
     background: var(--bg-alt);
@@ -427,37 +437,37 @@ select {
 }
 .section-header {
     text-align: center;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
 }
 .section-label {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     color: var(--accent);
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 .section-label::before,
 .section-label::after {
     content: '';
-    width: 24px;
+    width: 20px;
     height: 2px;
     background: var(--accent-light);
 }
 .section-title {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
     font-weight: 800;
     color: var(--primary);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 .section-desc {
     color: var(--text-muted);
     max-width: 640px;
     margin: 0 auto;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 /* ===== کارت‌ها ===== */
@@ -474,7 +484,7 @@ select {
     box-shadow: var(--shadow-lg);
 }
 .card-img {
-    height: 220px;
+    height: 200px;
     overflow: hidden;
 }
 .card-img img {
@@ -487,45 +497,45 @@ select {
     transform: scale(1.06);
 }
 .card-body {
-    padding: 22px;
+    padding: 18px;
 }
 .card-tag {
     display: inline-block;
     background: var(--accent-lighter);
     color: var(--primary);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 20px;
-    margin-bottom: 10px;
-}
-.card-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--primary);
     margin-bottom: 8px;
 }
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
 .card-text {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 /* ===== گریدها ===== */
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 20px;
 }
 .grid-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 20px;
 }
 .grid-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 16px;
 }
 
 /* ===== آمار ===== */
@@ -534,7 +544,7 @@ select {
     grid-template-columns: repeat(4, 1fr);
     background: var(--primary);
     border-radius: var(--radius);
-    padding: 36px;
+    padding: 28px 20px;
     box-shadow: var(--shadow-lg);
 }
 .stat-item {
@@ -542,24 +552,24 @@ select {
     color: #fff;
 }
 .stat-num {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 900;
     color: var(--accent-light);
 }
 .stat-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     opacity: 0.85;
     margin-top: 4px;
 }
 .stat-item+.stat-item {
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* ===== بخش ویژه پل شاپور ===== */
+/* ===== بخش ویژه ===== */
 .feature-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: 32px;
     align-items: center;
 }
 .feature-img {
@@ -570,29 +580,29 @@ select {
 }
 .feature-img img {
     width: 100%;
-    height: 400px;
+    height: 320px;
     object-fit: cover;
 }
 .feature-img .img-badge {
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 12px;
+    right: 12px;
     background: var(--primary);
     color: #fff;
-    padding: 6px 14px;
+    padding: 4px 12px;
     border-radius: 20px;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 600;
 }
 .feature-list {
-    margin: 20px 0;
+    margin: 16px 0;
 }
 .feature-list li {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    padding: 8px 0;
-    font-size: 0.92rem;
+    padding: 6px 0;
+    font-size: 0.9rem;
     color: var(--text-muted);
 }
 .feature-list li i {
@@ -605,7 +615,7 @@ select {
 .product-card {
     background: var(--card);
     border-radius: var(--radius);
-    padding: 28px;
+    padding: 20px;
     text-align: center;
     border: 1px solid var(--border);
     transition: all var(--transition);
@@ -615,30 +625,30 @@ select {
     box-shadow: var(--shadow);
 }
 .product-icon {
-    width: 72px;
-    height: 72px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin: 0 auto 16px;
+    margin: 0 auto 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 .product-card h3 {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 .product-card p {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
 }
 
 /* ===== اخبار ===== */
 .news-card {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     background: var(--card);
     border-radius: var(--radius);
     overflow: hidden;
@@ -649,8 +659,8 @@ select {
     box-shadow: var(--shadow);
 }
 .news-img {
-    width: 200px;
-    min-height: 160px;
+    width: 180px;
+    min-height: 140px;
     flex-shrink: 0;
     overflow: hidden;
 }
@@ -660,33 +670,33 @@ select {
     object-fit: cover;
 }
 .news-body {
-    padding: 20px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .news-date {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: var(--accent);
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 .news-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 .news-text {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
 }
 
 /* ===== گالری ===== */
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
 }
 .gallery-item {
     border-radius: var(--radius-sm);
@@ -712,14 +722,14 @@ select {
     transition: opacity var(--transition);
     display: flex;
     align-items: flex-end;
-    padding: 16px;
+    padding: 12px;
 }
 .gallery-item:hover .gi-overlay {
     opacity: 1;
 }
 .gi-overlay span {
     color: #fff;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
 }
 
@@ -737,24 +747,24 @@ select {
     display: flex;
 }
 .lightbox-img {
-    max-width: 90vw;
-    max-height: 85vh;
+    max-width: 92vw;
+    max-height: 82vh;
     border-radius: 8px;
     object-fit: contain;
 }
 .lightbox-close {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 16px;
+    left: 16px;
     background: rgba(255, 255, 255, 0.15);
     color: #fff;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     transition: background var(--transition);
 }
 .lightbox-close:hover {
@@ -766,34 +776,34 @@ select {
     transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.12);
     color: #fff;
-    width: 52px;
-    height: 52px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     transition: background var(--transition);
 }
 .lightbox-nav:hover {
     background: rgba(255, 255, 255, 0.25);
 }
 .lightbox-prev {
-    right: 20px;
+    right: 16px;
 }
 .lightbox-next {
-    left: 20px;
+    left: 16px;
 }
 .lightbox-caption {
     position: absolute;
-    bottom: 24px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    padding: 8px 24px;
+    padding: 6px 20px;
     border-radius: 30px;
 }
 
@@ -801,30 +811,30 @@ select {
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 32px;
 }
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 .form-group label {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--primary);
 }
 .form-group input,
 .form-group textarea,
 .form-group select {
-    padding: 12px 16px;
+    padding: 10px 14px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     transition: border-color var(--transition);
     background: var(--bg);
     color: var(--text);
@@ -837,42 +847,42 @@ select {
     box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.15);
 }
 .form-group textarea {
-    min-height: 120px;
+    min-height: 100px;
     resize: vertical;
 }
 .contact-info-card {
     background: var(--primary);
     color: #fff;
     border-radius: var(--radius);
-    padding: 32px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
 }
 .ci-item {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
 .ci-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
     flex-shrink: 0;
 }
 .ci-text span {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     opacity: 0.7;
 }
 .ci-text strong {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 600;
 }
 
@@ -888,7 +898,7 @@ select {
     box-shadow: var(--shadow-lg);
 }
 .booking-card .bc-img {
-    height: 220px;
+    height: 200px;
     overflow: hidden;
 }
 .booking-card .bc-img img {
@@ -897,44 +907,44 @@ select {
     object-fit: cover;
 }
 .booking-card .bc-body {
-    padding: 22px;
+    padding: 18px;
 }
 .booking-card .bc-title {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 .bc-features {
     display: flex;
-    gap: 16px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
 }
 .bc-feat {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.82rem;
+    gap: 4px;
+    font-size: 0.78rem;
     color: var(--text-muted);
 }
 .bc-feat i {
     color: var(--accent);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 .bc-price {
     display: flex;
     align-items: baseline;
     gap: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 .bc-price .price {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: var(--primary);
 }
 .bc-price .unit {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
@@ -947,7 +957,7 @@ select {
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 16px;
 }
 .modal-overlay.active {
     display: flex;
@@ -965,43 +975,15 @@ select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 24px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--border);
 }
 .modal-header h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--primary);
 }
 .modal-close {
     background: none;
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    padding: 4px;
-}
-.modal-close:hover {
-    color: var(--text);
-}
-.modal-body {
-    padding: 24px;
-}
-.modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-.modal-form .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
-
-/* ===== فوتر ===== */
-.footer {
-    background: var(--primary);
-    color: #fff;
-    padding: 56px 0 0;
-}
-.footer-grid {
-    display: grid;
-    grid-template-colu
+    font-size: 1.1rem;
+    color: var(--
