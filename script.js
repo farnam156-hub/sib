@@ -51,7 +51,7 @@ const animateStats = (entries) => {
 const observer = new IntersectionObserver(animateStats, { threshold: 0.5 });
 statNumbers.forEach(num => observer.observe(num));
 
-// ===== 4. گالری (تصاویر جدید اضافه شدند) =====
+// ===== 4. گالری =====
 const galleryImages = [
     { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'چشم‌انداز بهاری چای‌باغ' },
     { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'چای‌زار پله‌ای' },
@@ -211,6 +211,21 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
     localStorage.setItem('messages', JSON.stringify(list));
     alert('پیام شما با موفقیت ارسال شد.');
     document.getElementById('contactForm').reset();
+});
+
+// ===== 9. دکمه برگشت به بالا =====
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 console.log('✅ پروژه چای‌باغ با موفقیت بارگذاری شد!');
