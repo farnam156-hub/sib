@@ -1,45 +1,28 @@
-من مشکل را دقیقاً بررسی کردم. در کدی که ارسال کردم، همه کوئری‌های ریسپانسیو وجود دارند اما احتمالاً مرورگر شما viewport را درست تشخیص نداده یا کدها را به‌درستی کپی نکرده‌اید.
-
-بیایید یک نسخه فوق‌العاده ریسپانسیو و مقاوم از فایل style.css را بازنویسی کنم. این نسخه:
-
-· همه اندازه‌های صفحه (از ۳۲۰px تا ۱۴۰۰px) را پوشش می‌دهد.
-· منوی موبایل را کاملاً بهینه می‌کند.
-· تصاویر و کارت‌ها را در موبایل به‌خوبی نمایش می‌دهد.
-· فونت‌ها و فاصله‌ها را در موبایل کوچک‌تر می‌کند.
-
-لطفاً تمام محتوای فایل style.css را با کد زیر جایگزین کنید:
-
-```css
-/* ===== متغیرهای طراحی ===== */
+/* ===== متغیرها ===== */
 :root {
     --primary: #1B4332;
     --primary-light: #2D6A4F;
-    --secondary: #40916C;
     --accent: #52B788;
     --accent-light: #95D5B2;
     --accent-lighter: #D8F3DC;
     --bg: #FFFFFF;
     --bg-alt: #F6F8F7;
-    --bg-warm: #FDF9F3;
     --text: #1A1A2E;
     --text-muted: #5A6270;
     --border: #E2E8F0;
-    --card: #FFFFFF;
     --shadow: 0 2px 16px rgba(27, 67, 50, 0.08);
     --shadow-lg: 0 8px 32px rgba(27, 67, 50, 0.12);
     --radius: 12px;
     --radius-sm: 8px;
     --header-h: 68px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: 0.3s ease;
 }
 
-/* ===== ریست و پایه ===== */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* ===== ریست ===== */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 html {
     scroll-behavior: smooth;
@@ -56,9 +39,6 @@ a {
     text-decoration: none;
     color: inherit;
 }
-ul {
-    list-style: none;
-}
 img {
     max-width: 100%;
     display: block;
@@ -74,6 +54,9 @@ textarea,
 select {
     font-family: inherit;
 }
+ul {
+    list-style: none;
+}
 
 /* ===== هدر ===== */
 .header {
@@ -86,150 +69,48 @@ select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 clamp(12px, 3vw, 48px);
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all var(--transition);
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid transparent;
+    transition: all var(--transition);
 }
 .header.scrolled {
     background: rgba(255, 255, 255, 0.97);
     border-bottom-color: var(--border);
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
 }
-.header-logo {
+.logo {
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--primary);
-    white-space: nowrap;
 }
-.logo-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 0.9rem;
-    flex-shrink: 0;
+.logo i {
+    font-size: 1.3rem;
+    color: var(--accent);
 }
 
-/* ===== ناوبری ===== */
-.main-nav {
+/* ===== منو ===== */
+.nav {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
 }
-.nav-item {
-    position: relative;
-}
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 12px;
+.nav a {
+    padding: 8px 14px;
     border-radius: var(--radius-sm);
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--text-muted);
     transition: all var(--transition);
-    white-space: nowrap;
-    background: transparent;
 }
-.nav-link:hover,
-.nav-link.active {
+.nav a:hover,
+.nav a.active {
     color: var(--primary);
     background: var(--accent-lighter);
-}
-.nav-link i.fa-chevron-down {
-    font-size: 0.6rem;
-    transition: transform var(--transition);
-}
-.nav-item.open .nav-link i.fa-chevron-down {
-    transform: rotate(180deg);
-}
-.nav-link-direct {
-    color: var(--primary);
-    font-weight: 600;
-}
-
-/* ===== مگامنو ===== */
-.mega-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    min-width: 340px;
-    max-width: 560px;
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
-    padding: 20px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: all 0.25s ease;
-    pointer-events: none;
-}
-.nav-item.open .mega-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-.mega-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-.mega-col h4 {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.mega-col a {
-    display: block;
-    padding: 5px 0;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
-}
-.mega-col a:last-child {
-    border-bottom: none;
-}
-.mega-col a:hover {
-    color: var(--primary);
-    padding-right: 6px;
-}
-.mega-img {
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    position: relative;
-    height: 120px;
-}
-.mega-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.mega-img span {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: linear-gradient(transparent, rgba(27, 67, 50, 0.8));
-    color: #fff;
-    font-size: 0.7rem;
-    padding: 16px 10px 6px;
 }
 
 /* ===== همبرگر ===== */
@@ -241,7 +122,7 @@ select {
     padding: 6px;
 }
 .hamburger span {
-    width: 22px;
+    width: 24px;
     height: 2px;
     background: var(--primary);
     border-radius: 2px;
@@ -257,7 +138,7 @@ select {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ===== موبایل منو ===== */
+/* ===== منوی موبایل ===== */
 .mobile-menu {
     display: none;
     position: fixed;
@@ -267,7 +148,7 @@ select {
     bottom: 0;
     background: var(--bg);
     z-index: 999;
-    padding: 16px;
+    padding: 20px;
     overflow-y: auto;
 }
 .mobile-menu.show {
@@ -275,7 +156,7 @@ select {
 }
 .mobile-menu a {
     display: block;
-    padding: 12px 14px;
+    padding: 14px 16px;
     border-bottom: 1px solid var(--border);
     font-size: 0.95rem;
     color: var(--text);
@@ -283,15 +164,6 @@ select {
 .mobile-menu a:hover {
     color: var(--primary);
     background: var(--accent-lighter);
-}
-.mobile-menu .mob-sub {
-    padding-right: 24px;
-    font-size: 0.88rem;
-    color: var(--text-muted);
-}
-.mobile-menu .mob-sub a {
-    border-bottom: none;
-    padding: 6px 14px;
 }
 
 /* ===== هیرو ===== */
@@ -302,8 +174,8 @@ select {
     align-items: center;
     justify-content: center;
     text-align: center;
-    overflow: hidden;
     padding-top: var(--header-h);
+    overflow: hidden;
 }
 .hero-bg {
     position: absolute;
@@ -318,54 +190,38 @@ select {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(27, 67, 50, 0.55) 0%, rgba(27, 67, 50, 0.75) 100%);
+    background: linear-gradient(180deg, rgba(27, 67, 50, 0.5) 0%, rgba(27, 67, 50, 0.8) 100%);
     z-index: 1;
 }
 .hero-content {
     position: relative;
     z-index: 2;
     color: #fff;
-    max-width: 800px;
-    padding: 0 16px;
+    max-width: 720px;
+    padding: 0 20px;
 }
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    padding: 6px 16px;
-    border-radius: 40px;
-    font-size: 0.8rem;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.hero-title {
-    font-size: clamp(2rem, 6vw, 4rem);
+.hero-content h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 900;
     line-height: 1.2;
     margin-bottom: 16px;
 }
-.hero-title span {
+.hero-content h1 span {
     color: var(--accent-light);
 }
-.hero-desc {
-    font-size: clamp(0.95rem, 2vw, 1.1rem);
+.hero-content p {
+    font-size: 1rem;
     opacity: 0.9;
     margin-bottom: 28px;
-    line-height: 1.9;
+    line-height: 2;
 }
-.hero-btns {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+
+/* ===== دکمه‌ها ===== */
 .btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 22px;
+    padding: 12px 28px;
     border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 600;
@@ -389,307 +245,102 @@ select {
     border-color: #fff;
     background: rgba(255, 255, 255, 0.1);
 }
-.btn-dark {
-    background: var(--primary);
-    color: #fff;
-}
-.btn-dark:hover {
-    background: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-.hero-scroll {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    color: #fff;
-    font-size: 0.75rem;
-    text-align: center;
-    animation: float 2.5s ease-in-out infinite;
-}
-@keyframes float {
-    0%,
-    100% {
-        transform: translateX(-50%) translateY(0);
-    }
-    50% {
-        transform: translateX(-50%) translateY(-8px);
-    }
-}
 
 /* ===== بخش‌ها ===== */
 .section {
     padding: 60px 0;
-    position: relative;
 }
 .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 16px;
 }
 .section-alt {
     background: var(--bg-alt);
 }
-.section-warm {
-    background: var(--bg-warm);
-}
 .section-header {
     text-align: center;
     margin-bottom: 40px;
 }
-.section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--accent);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-}
-.section-label::before,
-.section-label::after {
-    content: '';
-    width: 20px;
-    height: 2px;
-    background: var(--accent-light);
-}
-.section-title {
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
+.section-header h2 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
     font-weight: 800;
     color: var(--primary);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
-.section-desc {
+.section-header p {
     color: var(--text-muted);
-    max-width: 640px;
+    max-width: 600px;
     margin: 0 auto;
     font-size: 0.9rem;
 }
 
-/* ===== کارت‌ها ===== */
-.card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    transition: all var(--transition);
-    border: 1px solid var(--border);
-}
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-.card-img {
-    height: 200px;
-    overflow: hidden;
-}
-.card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-.card:hover .card-img img {
-    transform: scale(1.06);
-}
-.card-body {
-    padding: 18px;
-}
-.card-tag {
-    display: inline-block;
-    background: var(--accent-lighter);
-    color: var(--primary);
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 8px;
-}
-.card-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 6px;
-}
-.card-text {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-/* ===== گریدها ===== */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-.grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-.grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
-
 /* ===== آمار ===== */
-.stats-bar {
+.stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     background: var(--primary);
     border-radius: var(--radius);
     padding: 28px 20px;
     box-shadow: var(--shadow-lg);
+    margin-top: -30px;
+    position: relative;
+    z-index: 10;
 }
 .stat-item {
     text-align: center;
     color: #fff;
 }
-.stat-num {
-    font-size: 1.8rem;
+.stat-number {
+    font-size: 2rem;
     font-weight: 900;
     color: var(--accent-light);
 }
 .stat-label {
     font-size: 0.8rem;
-    opacity: 0.85;
-    margin-top: 4px;
+    opacity: 0.8;
 }
 .stat-item+.stat-item {
     border-right: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* ===== بخش ویژه ===== */
-.feature-section {
+/* ===== معرفی ===== */
+.intro-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
     align-items: center;
 }
-.feature-img {
+.intro-img {
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
-    position: relative;
 }
-.feature-img img {
+.intro-img img {
     width: 100%;
-    height: 320px;
+    height: 300px;
     object-fit: cover;
 }
-.feature-img .img-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--primary);
-    color: #fff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
+.intro-text h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 12px;
 }
-.feature-list {
-    margin: 16px 0;
+.intro-text p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
 }
-.feature-list li {
+.intro-text ul li {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     padding: 6px 0;
     font-size: 0.9rem;
     color: var(--text-muted);
 }
-.feature-list li i {
+.intro-text ul li i {
     color: var(--accent);
-    margin-top: 6px;
-    font-size: 0.8rem;
-}
-
-/* ===== محصولات ===== */
-.product-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 20px;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: all var(--transition);
-}
-.product-card:hover {
-    border-color: var(--accent);
-    box-shadow: var(--shadow);
-}
-.product-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin: 0 auto 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-}
-.product-card h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 6px;
-}
-.product-card p {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-}
-
-/* ===== اخبار ===== */
-.news-card {
-    display: flex;
-    gap: 16px;
-    background: var(--card);
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: all var(--transition);
-}
-.news-card:hover {
-    box-shadow: var(--shadow);
-}
-.news-img {
-    width: 180px;
-    min-height: 140px;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-.news-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.news-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.news-date {
-    font-size: 0.75rem;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-.news-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 4px;
-}
-.news-text {
-    font-size: 0.82rem;
-    color: var(--text-muted);
 }
 
 /* ===== گالری ===== */
@@ -709,12 +360,12 @@ select {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s;
+    transition: transform 0.4s;
 }
 .gallery-item:hover img {
     transform: scale(1.06);
 }
-.gallery-item .gi-overlay {
+.gallery-item .overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(transparent 50%, rgba(27, 67, 50, 0.7));
@@ -724,10 +375,10 @@ select {
     align-items: flex-end;
     padding: 12px;
 }
-.gallery-item:hover .gi-overlay {
+.gallery-item:hover .overlay {
     opacity: 1;
 }
-.gi-overlay span {
+.gallery-item .overlay span {
     color: #fff;
     font-size: 0.8rem;
     font-weight: 500;
@@ -746,13 +397,13 @@ select {
 .lightbox.active {
     display: flex;
 }
-.lightbox-img {
-    max-width: 92vw;
-    max-height: 82vh;
+.lightbox img {
+    max-width: 90vw;
+    max-height: 80vh;
     border-radius: 8px;
     object-fit: contain;
 }
-.lightbox-close {
+.lightbox .close {
     position: absolute;
     top: 16px;
     left: 16px;
@@ -764,13 +415,13 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     transition: background var(--transition);
 }
-.lightbox-close:hover {
+.lightbox .close:hover {
     background: rgba(255, 255, 255, 0.3);
 }
-.lightbox-nav {
+.lightbox .nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -782,29 +433,134 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     transition: background var(--transition);
 }
-.lightbox-nav:hover {
+.lightbox .nav:hover {
     background: rgba(255, 255, 255, 0.25);
 }
-.lightbox-prev {
+.lightbox .prev {
     right: 16px;
 }
-.lightbox-next {
+.lightbox .next {
     left: 16px;
 }
-.lightbox-caption {
+.lightbox .caption {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     color: #fff;
     font-size: 0.85rem;
-    text-align: center;
     background: rgba(0, 0, 0, 0.5);
     padding: 6px 20px;
     border-radius: 30px;
+}
+
+/* ===== رزرو ===== */
+.booking-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.booking-card {
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+}
+.booking-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+.booking-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.booking-card .body {
+    padding: 18px;
+}
+.booking-card .body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+.booking-card .body .price {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+.booking-card .body .unit {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+.booking-card .body .features {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 8px 0 12px;
+}
+.booking-card .body .features span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+.booking-card .body .features i {
+    color: var(--accent);
+}
+
+/* ===== مودال ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+.modal.active {
+    display: flex;
+}
+.modal-box {
+    background: #fff;
+    border-radius: var(--radius);
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+}
+.modal-box .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+.modal-box .head h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+.modal-box .head button {
+    background: none;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    padding: 4px;
+}
+.modal-box .head button:hover {
+    color: var(--text);
+}
+.modal-box .body {
+    padding: 20px;
+}
+.modal-box .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
 /* ===== تماس ===== */
@@ -813,15 +569,11 @@ select {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
 }
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    margin-bottom: 12px;
 }
 .form-group label {
     font-size: 0.82rem;
@@ -834,10 +586,9 @@ select {
     padding: 10px 14px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     transition: border-color var(--transition);
     background: var(--bg);
-    color: var(--text);
 }
 .form-group input:focus,
 .form-group textarea:focus,
@@ -850,7 +601,7 @@ select {
     min-height: 100px;
     resize: vertical;
 }
-.contact-info-card {
+.contact-info {
     background: var(--primary);
     color: #fff;
     border-radius: var(--radius);
@@ -860,12 +611,12 @@ select {
     justify-content: center;
     gap: 16px;
 }
-.ci-item {
+.contact-info .item {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-.ci-icon {
+.contact-info .item i {
     width: 40px;
     height: 40px;
     border-radius: 10px;
@@ -873,117 +624,151 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
     flex-shrink: 0;
 }
-.ci-text span {
+.contact-info .item span {
     display: block;
     font-size: 0.75rem;
     opacity: 0.7;
 }
-.ci-text strong {
+.contact-info .item strong {
     font-size: 0.88rem;
-    font-weight: 600;
 }
 
-/* ===== رزرو کارت ===== */
-.booking-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: all var(--transition);
+/* ===== فوتر ===== */
+.footer {
+    background: var(--primary);
+    color: #fff;
+    padding: 40px 0 0;
 }
-.booking-card:hover {
-    box-shadow: var(--shadow-lg);
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.booking-card .bc-img {
-    height: 200px;
-    overflow: hidden;
-}
-.booking-card .bc-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.booking-card .bc-body {
-    padding: 18px;
-}
-.booking-card .bc-title {
-    font-size: 1rem;
+.footer h4 {
+    font-size: 0.9rem;
     font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 8px;
-}
-.bc-features {
-    display: flex;
-    gap: 12px;
     margin-bottom: 12px;
-    flex-wrap: wrap;
+    color: var(--accent-light);
 }
-.bc-feat {
+.footer p,
+.footer a {
+    font-size: 0.82rem;
+    opacity: 0.8;
+    line-height: 2;
+}
+.footer a:hover {
+    opacity: 1;
+    color: var(--accent-light);
+}
+.footer .social {
     display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.78rem;
-    color: var(--text-muted);
+    gap: 8px;
+    margin-top: 12px;
 }
-.bc-feat i {
-    color: var(--accent);
-    font-size: 0.7rem;
-}
-.bc-price {
+.footer .social a {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
-    align-items: baseline;
-    gap: 6px;
-    margin-bottom: 12px;
-}
-.bc-price .price {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--primary);
-}
-.bc-price .unit {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
-
-/* ===== مودال ===== */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    font-size: 0.9rem;
+    transition: background var(--transition);
 }
-.modal-overlay.active {
-    display: flex;
-}
-.modal {
-    background: var(--card);
-    border-radius: var(--radius);
-    max-width: 520px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
-}
-.modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-}
-.modal-header h3 {
-    font-size: 1rem;
-    font-weight: 700;
+.footer .social a:hover {
+    background: var(--accent);
     color: var(--primary);
 }
-.modal-close {
-    background: none;
-    font-size: 1.1rem;
-    color: var(--
+.footer .copy {
+    text-align: center;
+    padding: 16px 0;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 20px;
+}
+
+/* ===== ریسپانسیو ===== */
+@media (max-width: 1024px) {
+    .booking-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .intro-grid {
+        gap: 24px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+    .hamburger {
+        display: flex;
+    }
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 20px;
+    }
+    .stat-item+.stat-item {
+        border-right: none;
+    }
+    .intro-grid {
+        grid-template-columns: 1fr;
+    }
+    .intro-img img {
+        height: 220px;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    .booking-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .modal-box .form-row {
+        grid-template-columns: 1fr;
+    }
+    .section {
+        padding: 40px 0;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 14px;
+    }
+    .stat-number {
+        font-size: 1.4rem;
+    }
+    .hero-content h1 {
+        font-size: 1.7rem;
+    }
+    .hero-content p {
+        font-size: 0.85rem;
+    }
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .gallery-item {
+        aspect-ratio: 1/1;
+    }
+}
