@@ -26,7 +26,6 @@ window.addEventListener('scroll', () => {
 
 // ===== 3. شمارشگر آمار =====
 const statNumbers = document.querySelectorAll('.stat-number');
-
 const animateStats = (entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -47,31 +46,109 @@ const animateStats = (entries) => {
         }
     });
 };
-
 const observer = new IntersectionObserver(animateStats, { threshold: 0.5 });
 statNumbers.forEach(num => observer.observe(num));
 
-// ===== 4. گالری =====
-const galleryImages = [
-    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'چشم‌انداز بهاری چای‌باغ' },
-    { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'چای‌زار پله‌ای' },
-    { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', caption: 'پل تاریخی شاپور' },
-    { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', caption: 'جنگل هیرکانی' },
-    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=450&fit=crop&crop=center', caption: 'آیین جشن مردگان' },
-    { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', caption: 'طبیعت بکر سوادکوه' },
+// ===== 4. گالری با حالت خلاصه/کامل =====
+const galleryItems = [
+    // طبیعت (۳ عدد)
+    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'چشم‌انداز بهاری', category: 'nature' },
+    { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', caption: 'جنگل هیرکانی', category: 'nature' },
+    { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', caption: 'طبیعت بکر سوادکوه', category: 'nature' },
+    // کشاورزی (۳ عدد)
+    { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'چای‌زار پله‌ای', category: 'agriculture' },
+    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'مزارع برنج', category: 'agriculture' },
+    { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', caption: 'برداشت چای', category: 'agriculture' },
+    // اماکن (۳ عدد)
+    { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', caption: 'پل تاریخی شاپور', category: 'places' },
+    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=450&fit=crop&crop=center', caption: 'امامزاده حسن (آلاشت)', category: 'places' },
+    { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'خانه‌های بوم‌گردی', category: 'places' },
 ];
 
 const galleryGrid = document.getElementById('galleryGrid');
+const galleryFilter = document.getElementById('galleryFilter');
+const toggleBtn = document.getElementById('galleryToggleBtn');
+let isFullMode = false;
+let currentCategory = 'all';
 
-galleryImages.forEach((img, index) => {
-    const div = document.createElement('div');
-    div.className = 'gallery-item';
-    div.innerHTML = `
-        <img src="${img.src}" alt="${img.caption}" loading="lazy" />
-        <div class="overlay"><span>${img.caption}</span></div>
-    `;
-    div.addEventListener('click', () => openLightbox(index));
-    galleryGrid.appendChild(div);
+function getCategoryLabel(cat) {
+    const map = { 'nature': 'طبیعت', 'agriculture': 'کشاورزی', 'places': 'اماکن' };
+    return map[cat] || cat;
+}
+
+function renderGallery(category) {
+    const filtered = category === 'all' 
+        ? galleryItems 
+        : galleryItems.filter(item => item.category === category);
+    
+    galleryGrid.innerHTML = '';
+    filtered.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.innerHTML = `
+            <img src="${item.src}" alt="${item.caption}" loading="lazy" />
+            <div class="overlay">
+                <span>${item.caption}</span>
+                <span class="category-badge">${getCategoryLabel(item.category)}</span>
+            </div>
+        `;
+        div.addEventListener('click', () => {
+            const realIndex = galleryItems.indexOf(item);
+            openLightbox(realIndex);
+        });
+        galleryGrid.appendChild(div);
+    });
+
+    // اعمال حالت
+    if (isFullMode) {
+        galleryGrid.classList.remove('compact');
+        galleryGrid.classList.add('full');
+    } else {
+        galleryGrid.classList.remove('full');
+        galleryGrid.classList.add('compact');
+    }
+}
+
+// اجرای اولیه
+renderGallery('all');
+
+// دکمه تغییر حالت
+toggleBtn.addEventListener('click', () => {
+    isFullMode = !isFullMode;
+    
+    if (isFullMode) {
+        galleryGrid.classList.remove('compact');
+        galleryGrid.classList.add('full');
+        galleryFilter.style.display = 'flex';
+        toggleBtn.innerHTML = '<i class="fas fa-compress-alt"></i> بستن گالری';
+        toggleBtn.classList.add('btn-outline');
+        toggleBtn.classList.remove('btn-primary');
+        // اسکرول به ابتدای گالری
+        document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+    } else {
+        galleryGrid.classList.remove('full');
+        galleryGrid.classList.add('compact');
+        galleryFilter.style.display = 'none';
+        toggleBtn.innerHTML = '<i class="fas fa-images"></i> مشاهده همه تصاویر';
+        toggleBtn.classList.remove('btn-outline');
+        toggleBtn.classList.add('btn-primary');
+        // بازنشانی فیلتر
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.filter-btn[data-filter="all"]')?.classList.add('active');
+        currentCategory = 'all';
+        renderGallery('all');
+    }
+});
+
+// فیلترها
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (!isFullMode) return;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.filter;
+        renderGallery(currentCategory);
+    });
 });
 
 // ===== 5. لایت‌باکس =====
@@ -88,7 +165,7 @@ function openLightbox(index) {
 }
 
 function updateLightbox() {
-    const img = galleryImages[currentIndex];
+    const img = galleryItems[currentIndex];
     lbImg.src = img.src;
     lbImg.alt = img.caption;
     lbCaption.textContent = img.caption;
@@ -101,11 +178,11 @@ function closeLightbox() {
 
 document.getElementById('lbClose').addEventListener('click', closeLightbox);
 document.getElementById('lbPrev').addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
     updateLightbox();
 });
 document.getElementById('lbNext').addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % galleryImages.length;
+    currentIndex = (currentIndex + 1) % galleryItems.length;
     updateLightbox();
 });
 
@@ -117,11 +194,11 @@ document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowRight') {
-        currentIndex = (currentIndex + 1) % galleryImages.length;
+        currentIndex = (currentIndex + 1) % galleryItems.length;
         updateLightbox();
     }
     if (e.key === 'ArrowLeft') {
-        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
         updateLightbox();
     }
 });
@@ -134,7 +211,6 @@ const bookings = [
 ];
 
 const bookingGrid = document.getElementById('bookingGrid');
-
 bookings.forEach((item) => {
     const div = document.createElement('div');
     div.className = 'booking-card';
@@ -215,7 +291,6 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
 
 // ===== 9. دکمه برگشت به بالا =====
 const backToTop = document.getElementById('backToTop');
-
 window.addEventListener('scroll', () => {
     if (window.scrollY > 400) {
         backToTop.classList.add('show');
@@ -223,9 +298,8 @@ window.addEventListener('scroll', () => {
         backToTop.classList.remove('show');
     }
 });
-
 backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-console.log('✅ پروژه چای‌باغ با موفقیت بارگذاری شد!');
+console.log('✅ پروژه کامل چای‌باغ با موفقیت بارگذاری شد!');
