@@ -4,308 +4,135 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>روستای چای‌باغ | سوادکوه شمالی</title>
-    <!-- فونت وزیرمتن -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
-    <!-- فونت‌آسوم -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <!-- استایل اختصاصی -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ==================== هدر ==================== -->
+    <!-- ===== هدر ===== -->
     <header class="header" id="header">
-        <div class="header-logo">
-            <div class="logo-icon"><i class="fas fa-leaf"></i></div>
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
             <span>چای‌باغ</span>
         </div>
-
-        <!-- منوی اصلی (دسکتاپ) -->
-        <nav class="main-nav" id="mainNav" aria-label="منوی اصلی">
-            <div class="nav-item">
-                <a href="#hero" class="nav-link nav-link-direct active">خانه</a>
-            </div>
-            <div class="nav-item" id="megaTrigger">
-                <button class="nav-link" aria-expanded="false">
-                    معرفی <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="mega-menu" role="menu">
-                    <div class="mega-inner">
-                        <div class="mega-col">
-                            <h4>درباره روستا</h4>
-                            <a href="#about">تاریخچه</a>
-                            <a href="#nature">طبیعت بکر</a>
-                            <a href="#bridge">پل شاپور</a>
-                            <a href="#products">محصولات</a>
-                        </div>
-                        <div class="mega-col">
-                            <h4>خدمات</h4>
-                            <a href="#reservation">اقامت</a>
-                            <a href="#gallery">گالری</a>
-                            <a href="#contact">تماس</a>
-                        </div>
-                        <div class="mega-img">
-                            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop&crop=center" alt="منظره چای‌باغ" loading="lazy" />
-                            <span>چای‌باغ در بهار</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-item">
-                <a href="#gallery" class="nav-link">گالری</a>
-            </div>
-            <div class="nav-item">
-                <a href="#reservation" class="nav-link">رزرو</a>
-            </div>
-            <div class="nav-item">
-                <a href="#contact" class="nav-link">تماس</a>
-            </div>
+        <nav class="nav" id="nav">
+            <a href="#hero" class="active">خانه</a>
+            <a href="#about">معرفی</a>
+            <a href="#gallery">گالری</a>
+            <a href="#booking">رزرو</a>
+            <a href="#contact">تماس</a>
         </nav>
-
-        <!-- دکمه همبرگر (موبایل) -->
-        <button class="hamburger" id="hamburger" aria-label="منوی موبایل" aria-expanded="false">
+        <button class="hamburger" id="hamburger" aria-label="منو">
             <span></span><span></span><span></span>
         </button>
     </header>
 
-    <!-- منوی موبایل (اسلاید‌آوت) -->
-    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-hidden="true">
+    <!-- ===== منوی موبایل ===== -->
+    <div class="mobile-menu" id="mobileMenu">
         <a href="#hero">خانه</a>
         <a href="#about">معرفی</a>
         <a href="#gallery">گالری</a>
-        <a href="#reservation">رزرو</a>
+        <a href="#booking">رزرو</a>
         <a href="#contact">تماس</a>
-        <div class="mob-sub">
-            <a href="#nature">طبیعت</a>
-            <a href="#bridge">پل شاپور</a>
-            <a href="#products">محصولات</a>
-        </div>
     </div>
 
-    <!-- ==================== هیرو ==================== -->
+    <!-- ===== هیرو ===== -->
     <section class="hero" id="hero">
         <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&h=900&fit=crop&crop=center" alt="چشم‌انداز روستای چای‌باغ" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&h=900&fit=crop&crop=center" alt="منظره روستا" loading="lazy" />
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-map-pin"></i> سوادکوه شمالی، مازندران
-            </div>
-            <h1 class="hero-title">
-                به <span>چای‌باغ</span> خوش آمدید
-            </h1>
-            <p class="hero-desc">
-                روستایی با چای‌زارهای سرسبز، پل تاریخی شاپور و طبیعتی بکر در دل جنگل‌های هیرکانی
-            </p>
-            <div class="hero-btns">
+            <h1>به <span>چای‌باغ</span> خوش آمدید</h1>
+            <p>روستایی با چای‌زارهای سرسبز، طبیعتی بکر و مهمان‌نوازی گرم در دل سوادکوه</p>
+            <div>
                 <a href="#about" class="btn btn-primary">بیشتر بدانید</a>
-                <a href="#reservation" class="btn btn-outline">رزرو اقامت</a>
+                <a href="#booking" class="btn btn-outline">رزرو اقامت</a>
             </div>
-        </div>
-        <div class="hero-scroll">
-            <i class="fas fa-chevron-down"></i>
-            <span>پایین بروید</span>
         </div>
     </section>
 
-    <!-- ==================== آمار ==================== -->
-    <div class="container" style="margin-top: -30px; position: relative; z-index: 10;">
-        <div class="stats-bar" id="statsBar">
+    <!-- ===== آمار ===== -->
+    <div class="container">
+        <div class="stats" id="stats">
             <div class="stat-item">
-                <div class="stat-num" data-count="1200">0</div>
+                <div class="stat-number" data-count="1200">0</div>
                 <div class="stat-label">جمعیت</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num" data-count="350">0</div>
+                <div class="stat-number" data-count="350">0</div>
                 <div class="stat-label">باغ چای</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num" data-count="5">0</div>
+                <div class="stat-number" data-count="5">0</div>
                 <div class="stat-label">اقامتگاه</div>
             </div>
             <div class="stat-item">
-                <div class="stat-num" data-count="1400">0</div>
+                <div class="stat-number" data-count="1400">0</div>
                 <div class="stat-label">ارتفاع (متر)</div>
             </div>
         </div>
     </div>
 
-    <!-- ==================== معرفی ==================== -->
+    <!-- ===== معرفی ===== -->
     <section class="section section-alt" id="about">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">درباره چای‌باغ</div>
-                <h2 class="section-title">بهشت گمشدهٔ سوادکوه</h2>
-                <p class="section-desc">
-                    روستای چای‌باغ با قدمتی بیش از ۲۰۰ سال، یکی از زیباترین مناطق ییلاقی مازندران است.
-                </p>
+                <h2>درباره چای‌باغ</h2>
+                <p>بهشت گمشدهٔ مازندران در دل سوادکوه</p>
             </div>
-            <div class="feature-section">
-                <div class="feature-img">
-                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=500&fit=crop&crop=center" alt="طبیعت چای‌باغ" loading="lazy" />
-                    <span class="img-badge"><i class="fas fa-camera"></i> طبیعت بکر</span>
+            <div class="intro-grid">
+                <div class="intro-img">
+                    <img src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=800&h=500&fit=crop&crop=center" alt="چای‌زار" loading="lazy" />
                 </div>
-                <div>
-                    <h3 style="font-size: 1.3rem; color: var(--primary); margin-bottom: 12px;">
-                        <i class="fas fa-tree" style="color: var(--accent); margin-left: 8px;"></i>
-                        طبیعت و تاریخ در هم آمیخته
-                    </h3>
-                    <p style="color: var(--text-muted); margin-bottom: 16px;">
-                        چای‌باغ با چای‌زارهای پله‌ای، جنگل‌های انبوه و آب‌وهوای معتدل، مقصدی ایده‌ال برای طبیعت‌گردان است. پل تاریخی شاپور یادگاری از دوران ساسانیان، بر سر راه این روستا خودنمایی می‌کند.
-                    </p>
-                    <ul class="feature-list">
+                <div class="intro-text">
+                    <h3><i class="fas fa-tree" style="color: var(--accent);"></i> طبیعت و تاریخ در هم آمیخته</h3>
+                    <p>چای‌باغ با چای‌زارهای پله‌ای، جنگل‌های هیرکانی و پل تاریخی شاپور، یکی از زیباترین روستاهای مازندران است.</p>
+                    <ul>
                         <li><i class="fas fa-check-circle"></i> چای‌زارهای مرغوب و چشم‌اندازهای رویایی</li>
                         <li><i class="fas fa-check-circle"></i> پل سنگی شاپور با قدمت ۱۷۰۰ سال</li>
                         <li><i class="fas fa-check-circle"></i> مسیرهای پیاده‌روی و کوه‌پیمایی</li>
-                        <li><i class="fas fa-check-circle"></i> اقامتگاه‌های بوم‌گردی با معماری محلی</li>
                     </ul>
-                    <a href="#bridge" class="btn btn-dark" style="margin-top: 8px;">درباره پل شاپور</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== جاذبه‌ها (کارت‌ها) ==================== -->
-    <section class="section" id="nature">
+    <!-- ===== گالری ===== -->
+    <section class="section" id="gallery">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">جاذبه‌ها</div>
-                <h2 class="section-title">چهارفصل زیبایی</h2>
-                <p class="section-desc">هر فصل چای‌باغ رنگی تازه دارد؛ از شکوفه‌های بهاری تا برف زمستانی.</p>
+                <h2>گالری تصاویر</h2>
+                <p>لحظاتی از زیبایی‌های روستای چای‌باغ</p>
             </div>
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-img"><img src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=400&fit=crop&crop=center" alt="چای‌زار" loading="lazy" /></div>
-                    <div class="card-body">
-                        <span class="card-tag">طبیعت</span>
-                        <h3 class="card-title">چای‌زارهای پله‌ای</h3>
-                        <p class="card-text">منظره‌ای خیره‌کننده از هزاران بوته چای که در دامنه‌های کوه سرسبز شده‌اند.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-img"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop&crop=center" alt="پل شاپور" loading="lazy" /></div>
-                    <div class="card-body">
-                        <span class="card-tag">تاریخی</span>
-                        <h3 class="card-title">پل شاپور</h3>
-                        <p class="card-text">پل سنگی با قدمت ساسانی، بر روی رودخانهٔ پرآب، یکی از شاهکارهای مهندسی باستانی.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-img"><img src="https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=400&fit=crop&crop=center" alt="جنگل" loading="lazy" /></div>
-                    <div class="card-body">
-                        <span class="card-tag">ماجراجویی</span>
-                        <h3 class="card-title">جنگل‌های هیرکانی</h3>
-                        <p class="card-text">قدم‌زدن در میان درختان کهنسال و سرخس‌های غول‌پیکر، تجربه‌ای فراموش‌نشدنی.</p>
-                    </div>
-                </div>
-            </div>
+            <div class="gallery-grid" id="galleryGrid"></div>
         </div>
     </section>
 
-    <!-- ==================== محصولات ==================== -->
-    <section class="section section-warm" id="products">
+    <!-- ===== رزرو ===== -->
+    <section class="section section-alt" id="booking">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">سوغات</div>
-                <h2 class="section-title">محصولات بومی</h2>
-                <p class="section-desc">از چای معطر تا عسل کوهی، همه چیز در چای‌باغ یافت می‌شود.</p>
+                <h2>اقامتگاه‌های بوم‌گردی</h2>
+                <p>با آسایش و صمیمیت در دل طبیعت اقامت کنید</p>
             </div>
-            <div class="grid-4">
-                <div class="product-card">
-                    <div class="product-icon" style="background: #D8F3DC; color: #1B4332;"><i class="fas fa-leaf"></i></div>
-                    <h3>چای سبز</h3>
-                    <p>چای تازه چیده شده با عطری دلپذیر</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon" style="background: #FDE4D0; color: #A0522D;"><i class="fas fa-jar"></i></div>
-                    <h3>عسل طبیعی</h3>
-                    <p>عسل کوهی با طعمی بی‌نظیر</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon" style="background: #E6D5B8; color: #8B5E3C;"><i class="fas fa-bread-slice"></i></div>
-                    <h3>نان محلی</h3>
-                    <p>نان تنوری سنتی به همراه کشک</p>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon" style="background: #D4E9FF; color: #1E4A6B;"><i class="fas fa-hand-sparkles"></i></div>
-                    <h3>صنایع‌دستی</h3>
-                    <p>گلیم، جاجیم و سفال‌های محلی</p>
-                </div>
-            </div>
+            <div class="booking-grid" id="bookingGrid"></div>
         </div>
     </section>
 
-    <!-- ==================== اخبار و رویدادها ==================== -->
-    <section class="section" id="news">
+    <!-- ===== تماس ===== -->
+    <section class="section" id="contact">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">اخبار</div>
-                <h2 class="section-title">رویدادهای اخیر</h2>
-                <p class="section-desc">از جشنوارهٔ چای تا برنامه‌های بوم‌گردی، در جریان باشید.</p>
-            </div>
-            <div class="grid-2">
-                <div class="news-card">
-                    <div class="news-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85f3e9?w=400&h=300&fit=crop&crop=center" alt="جشنواره چای" loading="lazy" /></div>
-                    <div class="news-body">
-                        <div class="news-date"><i class="far fa-calendar-alt"></i> ۲۰ مرداد ۱۴۰۵</div>
-                        <h3 class="news-title">جشنوارهٔ چای و آیین‌های محلی</h3>
-                        <p class="news-text">با حضور هنرمندان محلی و غرفه‌های صنایع‌دستی، جشنوارهٔ چای در چای‌باغ برگزار شد.</p>
-                    </div>
-                </div>
-                <div class="news-card">
-                    <div class="news-img"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop&crop=center" alt="مرمت پل" loading="lazy" /></div>
-                    <div class="news-body">
-                        <div class="news-date"><i class="far fa-calendar-alt"></i> ۵ تیر ۱۴۰۵</div>
-                        <h3 class="news-title">مرمت پل تاریخی شاپور آغاز شد</h3>
-                        <p class="news-text">با همکاری میراث فرهنگی، عملیات مرمت و استحکام‌بخشی پل ساسانی شروع شده است.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== گالری ==================== -->
-    <section class="section section-alt" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">تصاویر</div>
-                <h2 class="section-title">گالری چای‌باغ</h2>
-                <p class="section-desc">لحظاتی از زیبایی‌های روستا را در قاب تصویر ببینید.</p>
-            </div>
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- تصاویر توسط JS از یک آرایه ساخته می‌شوند (برای جلوگیری از تکرار کد) -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== رزرو اقامت ==================== -->
-    <section class="section" id="reservation">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">اقامت</div>
-                <h2 class="section-title">خونه‌های بوم‌گردی</h2>
-                <p class="section-desc">با آسایش و صمیمیت، در دل طبیعت چای‌باغ اقامت کنید.</p>
-            </div>
-            <div class="grid-3" id="bookingList">
-                <!-- کارت‌های اقامت توسط JS ساخته می‌شوند -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== تماس ==================== -->
-    <section class="section section-warm" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">ارتباط</div>
-                <h2 class="section-title">با ما در تماس باشید</h2>
-                <p class="section-desc">پرسش‌ها، پیشنهادات و هماهنگی‌های خود را با ما در میان بگذارید.</p>
+                <h2>تماس با ما</h2>
+                <p>پرسش‌ها و پیشنهادات خود را با ما در میان بگذارید</p>
             </div>
             <div class="contact-grid">
-                <form class="contact-form" id="contactForm">
+                <form id="contactForm">
                     <div class="form-group">
-                        <label for="fullName">نام و نام خانوادگی</label>
-                        <input type="text" id="fullName" placeholder="مثلاً علی رضایی" required />
+                        <label for="name">نام و نام خانوادگی</label>
+                        <input type="text" id="name" placeholder="علی رضایی" required />
                     </div>
                     <div class="form-group">
                         <label for="email">ایمیل</label>
@@ -314,54 +141,49 @@
                     <div class="form-group">
                         <label for="subject">موضوع</label>
                         <select id="subject">
-                            <option value="پرسش عمومی">پرسش عمومی</option>
-                            <option value="رزرو">رزرو اقامت</option>
-                            <option value="پیشنهاد">پیشنهاد</option>
-                            <option value="سایر">سایر</option>
+                            <option>پرسش عمومی</option>
+                            <option>رزرو</option>
+                            <option>پیشنهاد</option>
+                            <option>سایر</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="message">پیام</label>
-                        <textarea id="message" rows="5" placeholder="پیام خود را بنویسید..." required></textarea>
+                        <textarea id="message" rows="4" placeholder="پیام خود را بنویسید..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="align-self: flex-start;">ارسال پیام</button>
+                    <button type="submit" class="btn btn-primary">ارسال پیام</button>
                 </form>
-                <div class="contact-info-card">
-                    <div class="ci-item">
-                        <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="ci-text"><span>آدرس</span><strong>روستای چای‌باغ، سوادکوه شمالی، مازندران</strong></div>
+                <div class="contact-info">
+                    <div class="item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div><span>آدرس</span><strong>روستای چای‌باغ، سوادکوه شمالی، مازندران</strong></div>
                     </div>
-                    <div class="ci-item">
-                        <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
-                        <div class="ci-text"><span>تلفن</span><strong>۰۱۱-۳۲۲۵-۴۴۵۵</strong></div>
+                    <div class="item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div><span>تلفن</span><strong>۰۱۱-۳۲۲۵-۴۴۵۵</strong></div>
                     </div>
-                    <div class="ci-item">
-                        <div class="ci-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="ci-text"><span>ایمیل</span><strong>info@chaybagh.ir</strong></div>
-                    </div>
-                    <div style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
-                        <p style="font-size: 0.85rem; opacity: 0.7;">ما در اسرع وقت پاسخگوی شما خواهیم بود.</p>
+                    <div class="item">
+                        <i class="fas fa-envelope"></i>
+                        <div><span>ایمیل</span><strong>info@chaybagh.ir</strong></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== فوتر ==================== -->
+    <!-- ===== فوتر ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-icon" style="background: var(--accent-light); color: var(--primary);"><i class="fas fa-leaf"></i></div>
-                        <span>چای‌باغ</span>
+                <div>
+                    <div class="logo" style="color:#fff; margin-bottom:10px;">
+                        <i class="fas fa-leaf"></i> چای‌باغ
                     </div>
-                    <p>روستای چای‌باغ با طبیعتی بکر و مردمی مهمان‌نواز، مقصدی ایده‌آل برای فرار از هیاهوی شهر است.</p>
-                    <div class="footer-social">
-                        <a href="#" aria-label="اینستاگرام"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="تلگرام"><i class="fab fa-telegram-plane"></i></a>
-                        <a href="#" aria-label="یوتیوب"><i class="fab fa-youtube"></i></a>
-                        <a href="#" aria-label="آپارات"><i class="fas fa-play-circle"></i></a>
+                    <p>روستای چای‌باغ با طبیعتی بکر و مردمی مهمان‌نواز، مقصدی ایده‌آل برای فرار از هیاهوی شهر.</p>
+                    <div class="social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div>
@@ -369,22 +191,72 @@
                     <a href="#hero">خانه</a><br />
                     <a href="#about">معرفی</a><br />
                     <a href="#gallery">گالری</a><br />
-                    <a href="#reservation">رزرو</a><br />
-                    <a href="#contact">تماس</a>
+                    <a href="#booking">رزرو</a>
                 </div>
                 <div>
                     <h4>خدمات</h4>
-                    <a href="#reservation">اقامتگاه‌ها</a><br />
-                    <a href="#nature">تورهای طبیعت‌گردی</a><br />
-                    <a href="#products">فروش محصولات</a><br />
-                    <a href="#contact">راهنمای سفر</a>
+                    <a href="#booking">اقامتگاه‌ها</a><br />
+                    <a href="#contact">راهنمای سفر</a><br />
+                    <a href="#contact">تماس با ما</a>
                 </div>
                 <div>
                     <h4>اطلاعات تماس</h4>
-                    <p><i class="fas fa-phone" style="margin-left: 8px; color: var(--accent-light);"></i> ۰۱۱-۳۲۲۵-۴۴۵۵</p>
-                    <p><i class="fas fa-envelope" style="margin-left: 8px; color: var(--accent-light);"></i> info@chaybagh.ir</p>
-                    <p><i class="fas fa-map-pin" style="margin-left: 8px; color: var(--accent-light);"></i> سوادکوه شمالی، چای‌باغ</p>
+                    <p><i class="fas fa-phone" style="margin-left:8px;color:var(--accent-light);"></i> ۰۱۱-۳۲۲۵-۴۴۵۵</p>
+                    <p><i class="fas fa-envelope" style="margin-left:8px;color:var(--accent-light);"></i> info@chaybagh.ir</p>
                 </div>
             </div>
-            <div style="text-align: center; padding: 24px 0 16px; font-size: 0.8rem; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 24px;">
-                &copy; ۱۴۰۵ - تمامی حقوق برای روستای 
+            <div class="copy">© ۱۴۰۵ - تمامی حقوق برای روستای چای‌باغ محفوظ است.</div>
+        </div>
+    </footer>
+
+    <!-- ===== لایت‌باکس ===== -->
+    <div class="lightbox" id="lightbox">
+        <button class="close" id="lbClose"><i class="fas fa-times"></i></button>
+        <button class="nav prev" id="lbPrev"><i class="fas fa-chevron-right"></i></button>
+        <button class="nav next" id="lbNext"><i class="fas fa-chevron-left"></i></button>
+        <img id="lbImg" src="" alt="" />
+        <div class="caption" id="lbCaption"></div>
+    </div>
+
+    <!-- ===== مودال رزرو ===== -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-box">
+            <div class="head">
+                <h3><i class="fas fa-home" style="color:var(--accent);"></i> تکمیل رزرو</h3>
+                <button id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="body">
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>نام و نام خانوادگی</label>
+                            <input type="text" id="bookName" required />
+                        </div>
+                        <div class="form-group">
+                            <label>شماره تماس</label>
+                            <input type="tel" id="bookPhone" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>تاریخ ورود</label>
+                            <input type="date" id="bookCheckin" required />
+                        </div>
+                        <div class="form-group">
+                            <label>تاریخ خروج</label>
+                            <input type="date" id="bookCheckout" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>تعداد مهمان</label>
+                        <input type="number" id="bookGuests" min="1" max="10" value="2" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">ثبت رزرو</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
