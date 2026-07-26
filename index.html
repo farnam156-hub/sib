@@ -19,8 +19,8 @@
         <nav class="nav" id="nav">
             <a href="#hero" class="active">خانه</a>
             <a href="#about">معرفی</a>
-            <!-- لینک جشن مردگان حذف شد -->
             <a href="#gallery">گالری</a>
+            <a href="#products">محصولات</a>
             <a href="#booking">رزرو</a>
             <a href="#contact">تماس</a>
         </nav>
@@ -33,8 +33,8 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="#hero">خانه</a>
         <a href="#about">معرفی</a>
-        <!-- لینک جشن مردگان حذف شد -->
         <a href="#gallery">گالری</a>
+        <a href="#products">محصولات</a>
         <a href="#booking">رزرو</a>
         <a href="#contact">تماس</a>
     </div>
@@ -47,7 +47,7 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>به <span>چای‌باغ</span> خوش آمدید</h1>
-            <p>روستایی با چای‌زارهای سرسبز، طبیعتی بکر، آیین‌های کهن و مهمان‌نوازی گرم در دل سوادکوه</p>
+            <p>روستایی با چای‌زارهای سرسبز، طبیعتی بکر و مهمان‌نوازی گرم در دل سوادکوه</p>
             <div>
                 <a href="#about" class="btn btn-primary">بیشتر بدانید</a>
                 <a href="#booking" class="btn btn-outline">رزرو اقامت</a>
@@ -62,7 +62,6 @@
                 <div class="stat-number" data-count="870">0</div>
                 <div class="stat-label">جمعیت</div>
             </div>
-            
             <div class="stat-item">
                 <div class="stat-number" data-count="5">0</div>
                 <div class="stat-label">اقامتگاه</div>
@@ -74,7 +73,7 @@
         </div>
     </div>
 
-    <!-- ===== معرفی روستا (به‌روز) ===== -->
+    <!-- ===== معرفی ===== -->
     <section class="section section-alt" id="about">
         <div class="container">
             <div class="section-header">
@@ -106,7 +105,7 @@
         </div>
     </section>
 
-    <!-- ===== بخش جشن مردگان (حذف از منو ولی محتوا حفظ شده) ===== -->
+    <!-- ===== جشن مردگان (محتوای حفظ شده، لینک از منو حذف شد) ===== -->
     <section class="section" id="festival">
         <div class="container">
             <div class="section-header">
@@ -144,8 +143,48 @@
         </div>
     </section>
 
+    <!-- ===== محصولات محلی (جدید) ===== -->
+    <section class="section section-alt" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>محصولات محلی</h2>
+                <p>سوغات اصیل و طبیعی روستای چای‌باغ</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon" style="background: #D8F3DC; color: #1B4332;">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>چای سبز</h3>
+                    <p>چای تازه چیده شده با عطری دلپذیر از باغ‌های پله‌ای</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon" style="background: #FDE4D0; color: #A0522D;">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>برنج ارگانیک</h3>
+                    <p>برنج محلی با کیفیت عالی و بدون استفاده از کود شیمیایی</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon" style="background: #E6D5B8; color: #8B5E3C;">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3>نان محلی</h3>
+                    <p>نان تنوری سنتی به همراه کشک و گردو</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon" style="background: #D4E9FF; color: #1E4A6B;">
+                        <i class="fas fa-cheese"></i>
+                    </div>
+                    <h3>لبنیات محلی</h3>
+                    <p>ماست، دوغ و کره تازه از دامداری‌های روستا</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== گالری ===== -->
-    <section class="section section-alt" id="gallery">
+    <section class="section" id="gallery">
         <div class="container">
             <div class="section-header">
                 <h2>گالری تصاویر</h2>
@@ -156,7 +195,7 @@
     </section>
 
     <!-- ===== رزرو ===== -->
-    <section class="section" id="booking">
+    <section class="section section-alt" id="booking">
         <div class="container">
             <div class="section-header">
                 <h2>اقامتگاه‌های بوم‌گردی</h2>
@@ -166,8 +205,8 @@
         </div>
     </section>
 
-    <!-- ===== تماس ===== -->
-    <section class="section section-alt" id="contact">
+    <!-- ===== تماس + نقشه ===== -->
+    <section class="section" id="contact">
         <div class="container">
             <div class="section-header">
                 <h2>تماس با ما</h2>
@@ -213,6 +252,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ===== نقشه تعاملی (جدید) ===== -->
+            <div class="map-container">
+                <h3 style="text-align:center; color:var(--primary); margin-bottom:16px;">
+                    <i class="fas fa-map-pin" style="color:var(--accent);"></i> موقعیت روستای چای‌باغ
+                </h3>
+                <div class="map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.567!2d52.9!3d36.3!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDE4JzAwLjAiTiA1MsKwNTQnMDAuMCJF!5e0!3m2!1sen!2s!4v1234567890" 
+                        width="100%" 
+                        height="350" 
+                        style="border:0; border-radius: var(--radius);" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <p style="text-align:center; color:var(--text-muted); font-size:0.85rem; margin-top:8px;">
+                    <i class="fas fa-location-dot" style="color:var(--accent);"></i> 
+                    روستای چای‌باغ، بخش نارنجستان، سوادکوه شمالی، مازندران
+                </p>
+            </div>
         </div>
     </section>
 
@@ -224,7 +285,7 @@
                     <div class="logo" style="color:#fff; margin-bottom:10px;">
                         <i class="fas fa-leaf"></i> چای‌باغ
                     </div>
-                    <p>روستای چای‌باغ با طبیعتی بکر، آیین‌های کهن و مردمی مهمان‌نواز، مقصدی ایده‌آل برای فرار از هیاهوی شهر.</p>
+                    <p>روستای چای‌باغ با طبیعتی بکر و مردمی مهمان‌نواز، مقصدی ایده‌آل برای فرار از هیاهوی شهر.</p>
                     <div class="social">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-telegram-plane"></i></a>
@@ -235,8 +296,8 @@
                     <h4>دسترسی سریع</h4>
                     <a href="#hero">خانه</a><br />
                     <a href="#about">معرفی</a><br />
-                    <!-- لینک جشن مردگان در فوتر هم حذف شد -->
                     <a href="#gallery">گالری</a><br />
+                    <a href="#products">محصولات</a><br />
                     <a href="#booking">رزرو</a>
                 </div>
                 <div>
@@ -303,6 +364,11 @@
         </div>
     </div>
 
+    <!-- ===== دکمه برگشت به بالا (جدید) ===== -->
+    <button class="back-to-top" id="backToTop" aria-label="برگشت به بالا">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script src="script.js"></script>
 </body>
-</html>
+                    </html>
