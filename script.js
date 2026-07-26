@@ -51,12 +51,14 @@ const animateStats = (entries) => {
 const observer = new IntersectionObserver(animateStats, { threshold: 0.5 });
 statNumbers.forEach(num => observer.observe(num));
 
-// ===== 4. گالری =====
+// ===== 4. گالری (تصاویر جدید اضافه شدند) =====
 const galleryImages = [
-    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'چشم‌انداز بهاری' },
+    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'چشم‌انداز بهاری چای‌باغ' },
     { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'چای‌زار پله‌ای' },
     { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', caption: 'پل تاریخی شاپور' },
     { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', caption: 'جنگل هیرکانی' },
+    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=450&fit=crop&crop=center', caption: 'آیین جشن مردگان' },
+    { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', caption: 'طبیعت بکر سوادکوه' },
 ];
 
 const galleryGrid = document.getElementById('galleryGrid');
