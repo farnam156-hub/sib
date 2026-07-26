@@ -105,7 +105,7 @@
         </div>
     </section>
 
-    <!-- ===== جشن مردگان (محتوای حفظ شده، لینک از منو حذف شد) ===== -->
+    <!-- ===== جشن مردگان ===== -->
     <section class="section" id="festival">
         <div class="container">
             <div class="section-header">
@@ -143,7 +143,7 @@
         </div>
     </section>
 
-    <!-- ===== محصولات محلی (جدید) ===== -->
+    <!-- ===== محصولات محلی ===== -->
     <section class="section section-alt" id="products">
         <div class="container">
             <div class="section-header">
@@ -183,14 +183,33 @@
         </div>
     </section>
 
-    <!-- ===== گالری ===== -->
+    <!-- ===== گالری با حالت خلاصه/کامل ===== -->
     <section class="section" id="gallery">
         <div class="container">
             <div class="section-header">
                 <h2>گالری تصاویر</h2>
-                <p>لحظاتی از زیبایی‌های روستای چای‌باغ و آیین‌های کهن</p>
+                <p>لحظاتی از زیبایی‌های روستای چای‌باغ</p>
             </div>
-            <div class="gallery-grid" id="galleryGrid"></div>
+
+            <!-- فیلترها (فقط در حالت کامل نمایش داده می‌شوند) -->
+            <div class="gallery-filter" id="galleryFilter" style="display:none;">
+                <button class="filter-btn active" data-filter="all">همه</button>
+                <button class="filter-btn" data-filter="nature">طبیعت</button>
+                <button class="filter-btn" data-filter="agriculture">کشاورزی</button>
+                <button class="filter-btn" data-filter="places">اماکن</button>
+            </div>
+
+            <!-- شبکه تصاویر -->
+            <div class="gallery-grid compact" id="galleryGrid">
+                <!-- توسط JS ساخته می‌شود -->
+            </div>
+
+            <!-- دکمه تغییر حالت -->
+            <div style="text-align:center; margin-top:30px;">
+                <button class="btn btn-primary" id="galleryToggleBtn">
+                    <i class="fas fa-images"></i> مشاهده همه تصاویر
+                </button>
+            </div>
         </div>
     </section>
 
@@ -253,7 +272,7 @@
                 </div>
             </div>
 
-            <!-- ===== نقشه تعاملی (جدید) ===== -->
+            <!-- نقشه تعاملی -->
             <div class="map-container">
                 <h3 style="text-align:center; color:var(--primary); margin-bottom:16px;">
                     <i class="fas fa-map-pin" style="color:var(--accent);"></i> موقعیت روستای چای‌باغ
@@ -364,11 +383,11 @@
         </div>
     </div>
 
-    <!-- ===== دکمه برگشت به بالا (جدید) ===== -->
+    <!-- ===== دکمه برگشت به بالا ===== -->
     <button class="back-to-top" id="backToTop" aria-label="برگشت به بالا">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <script src="script.js"></script>
 </body>
-                    </html>
+</html>
