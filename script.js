@@ -205,7 +205,7 @@ document.addEventListener('keydown', (e) => {
 
 // ===== 6. کارت‌های رزرو =====
 const bookings = [
-    { name: 'کلبه چای‌کار', price: 850000, img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop&crop=center', features: ['چای‌زار', 'آبگرم'] },
+    { name: 'متل آریا', price: 850000, img: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222423.jpg', features: ['نهار', 'شام'] },
     { name: 'خانه بوم‌گردی مهر', price: 620000, img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop&crop=center', features: ['سنتی', 'حیاط'] },
     { name: 'ویلای جنگلی', price: 1200000, img: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=400&fit=crop&crop=center', features: ['جنگل', 'استخر'] },
 ];
