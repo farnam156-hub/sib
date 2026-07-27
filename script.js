@@ -49,17 +49,17 @@ const animateStats = (entries) => {
 const observer = new IntersectionObserver(animateStats, { threshold: 0.5 });
 statNumbers.forEach(num => observer.observe(num));
 
-// ===== 4. گالری با حالت خلاصه/کامل =====
+// ===== 4. گالری (بدون caption برای نمایش روی عکس) =====
 const galleryItems = [
-    // طبیعت (۳ عدد)
+    // طبیعت
     { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'nature' },
     { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', category: 'nature' },
     { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', category: 'nature' },
-    // کشاورزی (۳ عدد)
+    // کشاورزی
     { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
     { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
     { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
-    // اماکن (۳ عدد)
+    // اماکن
     { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', category: 'places' },
     { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=450&fit=crop&crop=center', category: 'places' },
     { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', category: 'places' },
@@ -86,9 +86,8 @@ function renderGallery(category) {
         const div = document.createElement('div');
         div.className = 'gallery-item';
         div.innerHTML = `
-            <img src="${item.src}" alt="${item.caption}" loading="lazy" />
+            <img src="${item.src}" alt="" loading="lazy" />
             <div class="overlay">
-                <span>${item.caption}</span>
                 <span class="category-badge">${getCategoryLabel(item.category)}</span>
             </div>
         `;
@@ -99,7 +98,6 @@ function renderGallery(category) {
         galleryGrid.appendChild(div);
     });
 
-    // اعمال حالت
     if (isFullMode) {
         galleryGrid.classList.remove('compact');
         galleryGrid.classList.add('full');
@@ -109,10 +107,8 @@ function renderGallery(category) {
     }
 }
 
-// اجرای اولیه
 renderGallery('all');
 
-// دکمه تغییر حالت
 toggleBtn.addEventListener('click', () => {
     isFullMode = !isFullMode;
     
@@ -123,7 +119,6 @@ toggleBtn.addEventListener('click', () => {
         toggleBtn.innerHTML = '<i class="fas fa-compress-alt"></i> بستن گالری';
         toggleBtn.classList.add('btn-outline');
         toggleBtn.classList.remove('btn-primary');
-        // اسکرول به ابتدای گالری
         document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
     } else {
         galleryGrid.classList.remove('full');
@@ -132,7 +127,6 @@ toggleBtn.addEventListener('click', () => {
         toggleBtn.innerHTML = '<i class="fas fa-images"></i> مشاهده همه تصاویر';
         toggleBtn.classList.remove('btn-outline');
         toggleBtn.classList.add('btn-primary');
-        // بازنشانی فیلتر
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('.filter-btn[data-filter="all"]')?.classList.add('active');
         currentCategory = 'all';
@@ -140,7 +134,6 @@ toggleBtn.addEventListener('click', () => {
     }
 });
 
-// فیلترها
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         if (!isFullMode) return;
@@ -151,7 +144,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// ===== 5. لایت‌باکس =====
+// ===== 5. لایت‌باکس (رفع مشکل undefined) =====
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 const lbCaption = document.getElementById('lbCaption');
@@ -167,8 +160,15 @@ function openLightbox(index) {
 function updateLightbox() {
     const img = galleryItems[currentIndex];
     lbImg.src = img.src;
-    lbImg.alt = img.caption;
-    lbCaption.textContent = img.caption;
+    lbImg.alt = '';
+    // اگر caption وجود نداشت، چیزی نمایش نده
+    if (img.caption) {
+        lbCaption.textContent = img.caption;
+        lbCaption.style.display = 'block';
+    } else {
+        lbCaption.textContent = '';
+        lbCaption.style.display = 'none';
+    }
 }
 
 function closeLightbox() {
@@ -302,4 +302,4 @@ backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-console.log('✅ پروژه کامل چای‌باغ با موفقیت بارگذاری شد!');
+console.log('✅ پروژه چای‌باغ با موفقیت بارگذاری شد!');
