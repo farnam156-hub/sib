@@ -52,9 +52,9 @@ statNumbers.forEach(num => observer.observe(num));
 // ===== 4. گالری با حالت خلاصه/کامل =====
 const galleryItems = [
     // طبیعت (۳ عدد)
-    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'nature' },
-    { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', category: 'nature' },
-    { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', category: 'nature' },
+    { src: 'https://s31.uupload.ir/files/chaybagh/images%20(2).jpeg', category: 'nature' },
+    { src: 'https://s21.uupload.ir/files/chaybagh/47413529-7788-l__4667.jpg', category: 'nature' },
+    { src: 'https://s21.uupload.ir/files/chaybagh/47485241-3397-l__1644.jpg', category: 'nature' },
     // کشاورزی (۳ عدد)
     { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
     { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
