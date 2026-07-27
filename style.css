@@ -993,3 +993,318 @@ ul {
     }
     .products-grid {
  
+/* ===== آیین کهن ===== */
+#ancient-ritual .ritual-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+#ancient-ritual .ritual-text h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+#ancient-ritual .ritual-text p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-bottom: 16px;
+}
+#ancient-ritual .ritual-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+#ancient-ritual .ritual-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+#ancient-ritual .ritual-image .img-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* اطلاعات کلی */
+#ancient-ritual .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background: var(--bg-alt);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+}
+#ancient-ritual .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text);
+}
+#ancient-ritual .info-item i {
+    color: var(--accent);
+    width: 20px;
+}
+
+/* چرا این روز */
+#ancient-ritual .ritual-details {
+    margin: 40px 0;
+}
+#ancient-ritual .ritual-details h3 {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+#ancient-ritual .details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+#ancient-ritual .detail-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+}
+#ancient-ritual .detail-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+}
+#ancient-ritual .detail-card i {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+#ancient-ritual .detail-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+#ancient-ritual .detail-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+/* آیین‌های عمومی */
+#ancient-ritual .ritual-traditions {
+    margin: 40px 0;
+}
+#ancient-ritual .ritual-traditions h3 {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+#ancient-ritual .traditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+#ancient-ritual .tradition-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text);
+}
+#ancient-ritual .tradition-item i {
+    color: var(--accent);
+    width: 20px;
+}
+
+/* لال شو */
+#ancient-ritual .lal-ritual {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin: 40px 0;
+}
+#ancient-ritual .lal-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+#ancient-ritual .lal-header h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+#ancient-ritual .lal-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+#ancient-ritual .lal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+#ancient-ritual .lal-text h4 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+#ancient-ritual .lal-text p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    margin-bottom: 12px;
+}
+#ancient-ritual .lal-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+#ancient-ritual .lal-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+#ancient-ritual .lal-image .img-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* مراحل لال شو */
+#ancient-ritual .lal-steps {
+    margin: 24px 0;
+}
+#ancient-ritual .lal-steps h4 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+#ancient-ritual .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+#ancient-ritual .step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+}
+#ancient-ritual .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+#ancient-ritual .step p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* جایگاه لال شو */
+#ancient-ritual .lal-significance {
+    margin: 24px 0;
+}
+#ancient-ritual .significance-box {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+#ancient-ritual .significance-box i {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+#ancient-ritual .significance-box h4 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+#ancient-ritual .significance-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* وضعیت امروز */
+#ancient-ritual .ritual-status {
+    margin: 40px 0;
+}
+#ancient-ritual .ritual-status h3 {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+#ancient-ritual .ritual-status p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.9;
+}
+
+/* سخن پایانی */
+#ancient-ritual .ritual-conclusion {
+    margin-top: 32px;
+}
+
+/* ===== ریسپانسیو آیین کهن ===== */
+@media (max-width: 768px) {
+    #ancient-ritual .ritual-intro {
+        grid-template-columns: 1fr;
+    }
+    #ancient-ritual .details-grid {
+        grid-template-columns: 1fr;
+    }
+    #ancient-ritual .lal-grid {
+        grid-template-columns: 1fr;
+    }
+    #ancient-ritual .steps-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    #ancient-ritual .info-grid {
+        grid-template-columns: 1fr;
+    }
+    #ancient-ritual .lal-ritual {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #ancient-ritual .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    #ancient-ritual .traditions-grid {
+        grid-template-columns: 1fr;
+    }
+}
