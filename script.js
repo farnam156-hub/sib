@@ -59,13 +59,11 @@ const galleryItems = [
     { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
     { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
     { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
-    // اماکن (۳ عدد)
-    { src: 'https://s25.uupload.ir/files/chaybagh/images.jpeg, category: 'places' },
-    { src: 'https://s21.uupload.ir/files/chaybagh/IMG_20260724_222449.jpg, category: 'places' },
-    { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222432.jpg, category: 'places' },
-    
+    // اماکن (۳ عدد) - ✅ اصلاح شد
+    { src: 'https://s25.uupload.ir/files/chaybagh/images.jpeg', category: 'places' },
+    { src: 'https://s21.uupload.ir/files/chaybagh/IMG_20260724_222449.jpg', category: 'places' },
+    { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222432.jpg', category: 'places' },
 ];
-
 const galleryGrid = document.getElementById('galleryGrid');
 const galleryFilter = document.getElementById('galleryFilter');
 const toggleBtn = document.getElementById('galleryToggleBtn');
