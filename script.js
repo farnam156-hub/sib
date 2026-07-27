@@ -65,7 +65,6 @@ const galleryItems = [
     { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222432.jpg', category: 'places' },
     { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222353.jpg', category: 'places' },
     { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222341.jpg', category: 'places' }.
-    { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222327.jpg', category: 'places' }.
 ];
 
 const galleryGrid = document.getElementById('galleryGrid');
