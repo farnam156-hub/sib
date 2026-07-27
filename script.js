@@ -52,17 +52,18 @@ statNumbers.forEach(num => observer.observe(num));
 // ===== 4. گالری با حالت خلاصه/کامل =====
 const galleryItems = [
     // طبیعت (۳ عدد)
-    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'چشم‌انداز بهاری', category: 'nature' },
-    { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', caption: 'جنگل هیرکانی', category: 'nature' },
-    { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', caption: 'طبیعت بکر سوادکوه', category: 'nature' },
+    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'nature' },
+    { src: 'https://images.unsplash.com/photo-1440589473619-3cde28941638?w=600&h=450&fit=crop&crop=center', category: 'nature' },
+    { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=450&fit=crop&crop=center', category: 'nature' },
     // کشاورزی (۳ عدد)
-    { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'چای‌زار پله‌ای', category: 'agriculture' },
-    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', caption: 'مزارع برنج', category: 'agriculture' },
-    { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', caption: 'برداشت چای', category: 'agriculture' },
+    { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
+    { src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
+    { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', category: 'agriculture' },
     // اماکن (۳ عدد)
-    { src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=450&fit=crop&crop=center', caption: 'پل تاریخی شاپور', category: 'places' },
-    { src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=450&fit=crop&crop=center', caption: 'امامزاده حسن (آلاشت)', category: 'places' },
-    { src: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=450&fit=crop&crop=center', caption: 'خانه‌های بوم‌گردی', category: 'places' },
+    { src: 'https://s25.uupload.ir/files/chaybagh/images.jpeg, category: 'places' },
+    { src: 'https://s21.uupload.ir/files/chaybagh/IMG_20260724_222449.jpg, category: 'places' },
+    { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222432.jpg, category: 'places' },
+    { src: 'https://s25.uupload.ir/files/chaybagh/IMG_20260724_222353.jpg, category: 'places' },
 ];
 
 const galleryGrid = document.getElementById('galleryGrid');
