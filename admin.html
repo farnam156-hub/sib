@@ -302,11 +302,7 @@
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="جستجو بر اساس نام یا تلفن..." oninput="filterTable()">
                 </div>
-                <div class="actions">
-                    <button class="btn btn-success" onclick="exportCSV()">خروجی CSV</button>
-                    <button class="btn btn-outline" onclick="window.print()">چاپ</button>
-                    <button class="btn btn-danger" onclick="clearAll()">حذف همه</button>
-                </div>
+                
             </div>
 
             <!-- لیست رزروها -->
@@ -480,82 +476,6 @@ function toPersianDate(dateStr) {
     } catch {
         return dateStr;
     }
-}
-
-// ================================================================
-// 7. خروجی CSV استاندارد (سازگار با اکسل فارسی)
-// ================================================================
-function exportCSV() {
-    let data = JSON.parse(localStorage.getItem('reservations')) || [];
-    if (!data.length) {
-        alert('هیچ داده‌ای برای خروجی وجود ندارد.');
-        return;
-    }
-
-    // 1. تعریف هدر ستون‌ها (به ترتیب درست)
-    const headers = ['نام', 'تلفن', 'تاریخ ورود', 'تاریخ خروج', 'تعداد مهمان', 'تاریخ ثبت'];
-    
-    // 2. ساخت محتوای CSV
-    let rows = [];
-    // اضافه کردن هدر
-    rows.push(headers.join(','));
-
-    // اضافه کردن هر ردیف داده
-    data.forEach(item => {
-        // تبدیل تاریخ‌ها به شمسی
-        const checkin = toPersianDate(item.checkin);
-        const checkout = toPersianDate(item.checkout);
-        
-        let regDate = '';
-        if (item.createdAt) {
-            const d = new Date(item.createdAt);
-            if (!isNaN(d.getTime())) {
-                regDate = d.toLocaleDateString('fa-IR', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                });
-            }
-        }
-
-        // ستون‌ها را به همان ترتیب هدر می‌چینیم
-        const row = [
-            item.name || '',
-            item.phone || '',
-            checkin,
-            checkout,
-            item.guests || '',
-            regDate
-        ];
-        
-        // هر مقدار را در صورت نیاز داخل کوتیشن می‌بریم (برای جلوگیری از مشکل کاما)
-        const escapedRow = row.map(cell => {
-            if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"') || cell.includes('\n'))) {
-                return `"${cell.replace(/"/g, '""')}"`;
-            }
-            return cell;
-        });
-        
-        rows.push(escapedRow.join(','));
-    });
-
-    // 3. تبدیل به رشته با خط جدید استاندارد (CRLF برای ویندوز)
-    const csvString = rows.join('\r\n');
-    
-    // 4. اضافه کردن BOM برای UTF-8 (برای نمایش صحیح فارسی در اکسل)
-    const blob = new Blob(['\uFEFF' + csvString], { 
-        type: 'text/csv;charset=utf-8;' 
-    });
-
-    // 5. دانلود فایل
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.download = `گزارش_رزروها_${new Date().toLocaleDateString('fa-IR').replace(/\//g, '_')}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
 }
 
         // ================================================================
