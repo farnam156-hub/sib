@@ -3,345 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل ادمین | رزروها</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>پنل ادمین حرفه‌ای | رزروها</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            background: #eef2f0;
+            font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
+            background: #e8f0fe;
+            margin: 0;
             padding: 20px;
-            min-height: 100vh;
         }
         .container {
             max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* هدر */
-        .admin-header {
-            background: #1B4332;
-            color: #fff;
-            padding: 16px 24px;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .admin-header h2 {
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .admin-header h2 i {
-            color: #95D5B2;
-        }
-        .admin-header .back-link {
-            color: #95D5B2;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.1);
-            padding: 6px 14px;
-            border-radius: 30px;
-        }
-        .admin-header .back-link:hover {
-            background: rgba(255,255,255,0.2);
-            color: #fff;
-        }
-
-        /* کارت اصلی */
-        .admin-card {
+            margin: auto;
             background: #fff;
-            border-radius: 0 0 12px 12px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
-
-        /* خلاصه آمار */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
+        h2 {
+            text-align: center;
+            color: #1B4332;
+            border-bottom: 3px solid #52B788;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        /* استایل باکس آمار */
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
         }
         .stat-box {
-            background: #f6f8f7;
-            border-radius: 10px;
-            padding: 14px 16px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-        }
-        .stat-box .number {
-            font-size: 1.8rem;
-            font-weight: 800;
+            background: #f0f9f4;
+            padding: 10px 25px;
+            border-radius: 30px;
+            border-right: 5px solid #1B4332;
+            font-weight: bold;
             color: #1B4332;
         }
-        .stat-box .label {
-            font-size: 0.8rem;
-            color: #5A6270;
+        .stat-box span {
+            color: #2d6a4f;
+            font-size: 1.4em;
         }
 
-        /* لیست کارت‌های رزرو */
-        .reservation-list {
+        /* جعبه ابزار (جستجو و دکمه‌ها) */
+        .toolbar {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .reservation-item {
-            background: #fafcfa;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 16px 20px;
-            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            transition: 0.2s;
+            margin-bottom: 20px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
         }
-        .reservation-item:hover {
-            border-color: #52B788;
-            box-shadow: 0 2px 8px rgba(82,183,136,0.08);
-        }
-        .reservation-item .info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px 24px;
-            align-items: center;
+        .toolbar input {
             flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 2px solid #dde4e6;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: 0.3s;
         }
-        .reservation-item .info .name {
-            font-weight: 700;
-            color: #1B4332;
-            font-size: 1rem;
+        .toolbar input:focus {
+            border-color: #52B788;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
         }
-        .reservation-item .info .detail {
-            font-size: 0.85rem;
-            color: #5A6270;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .reservation-item .info .detail i {
-            color: #52B788;
-            width: 16px;
-        }
-        .reservation-item .actions {
+        .btn-group {
             display: flex;
             gap: 8px;
-            flex-shrink: 0;
-        }
-        .reservation-item .actions button {
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .btn-delete {
-            color: #e74c3c;
-            background: #fde8e8;
-        }
-        .btn-delete:hover {
-            background: #f5d0d0;
-        }
-
-        /* پیام خالی */
-        .empty-state {
-            text-align: center;
-            padding: 50px 20px;
-            color: #999;
-        }
-        .empty-state i {
-            font-size: 3rem;
-            color: #d4d9d6;
-            margin-bottom: 12px;
-        }
-        .empty-state p {
-            font-size: 1rem;
-        }
-
-        /* دکمه‌های پایین */
-        .footer-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 20px;
-            border-top: 1px solid #eef2f0;
-            padding-top: 20px;
             flex-wrap: wrap;
         }
-        .btn-clear-all {
-            background: #e74c3c;
-            color: #fff;
-            border: none;
+        .btn {
             padding: 8px 18px;
-            border-radius: 8px;
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 0.85rem;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: bold;
+            color: #fff;
+            transition: 0.3s;
+            font-size: 14px;
+            white-space: nowrap;
         }
-        .btn-clear-all:hover {
-            background: #c0392b;
+        .btn:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
         }
+        .btn-green { background: #2d6a4f; }
+        .btn-blue { background: #1e6091; }
+        .btn-orange { background: #e76f51; }
+        .btn-red { background: #c1121f; }
+        .btn-purple { background: #6b4c3a; }
 
-        /* ===== ریسپانسیو ===== */
-        @media (max-width: 768px) {
-            body { padding: 12px; }
-            .admin-header { flex-direction: column; align-items: stretch; text-align: center; }
-            .admin-header h2 { justify-content: center; font-size: 1.1rem; }
-            .admin-header .back-link { justify-content: center; }
-            .admin-card { padding: 16px; }
-            .stats-row { grid-template-columns: 1fr 1fr; }
-            .reservation-item { flex-direction: column; align-items: stretch; }
-            .reservation-item .info { gap: 8px; }
-            .reservation-item .info .detail { font-size: 0.8rem; }
-            .reservation-item .actions { justify-content: flex-end; }
-            .footer-actions { justify-content: center; }
+        /* جدول */
+        .table-responsive {
+            overflow-x: auto;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background: #1B4332;
+            color: #fff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #fafcfa;
+        }
+        tr:hover {
+            background: #e9f5ef;
+        }
+        .empty {
+            text-align: center;
+            color: #aaa;
+            padding: 50px;
+            font-size: 1.2rem;
+        }
+        .action-btns {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 20px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+        .btn-edit { background: #f4a261; }
+        .btn-del { background: #e63946; }
 
-        @media (max-width: 480px) {
-            .stats-row { grid-template-columns: 1fr; }
-            .reservation-item .info .name { font-size: 0.9rem; }
-            .reservation-item .info .detail { font-size: 0.75rem; flex-wrap: wrap; }
-            .reservation-item .actions button { font-size: 0.75rem; padding: 4px 8px; }
+        @media print {
+            .toolbar, .no-print { display: none; }
+            .container { box-shadow: none; }
+            body { background: #fff; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="mainContainer">
+    <h2>📋 مدیریت رزروهای چایباغ</h2>
 
-    <!-- هدر -->
-    <div class="admin-header">
-        <h2><i class="fas fa-user-shield"></i> پنل مدیریت رزروها</h2>
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> بازگشت به سایت</a>
+    <!-- باکس آمار -->
+    <div class="stats" id="stats">
+        <div class="stat-box">📊 مجموع رزروها: <span id="totalCount">0</span></div>
+        <div class="stat-box">📅 رزروهای امروز: <span id="todayCount">0</span></div>
     </div>
 
-    <!-- محتوای اصلی -->
-    <div class="admin-card">
-
-        <!-- آمار -->
-        <div class="stats-row" id="statsRow">
-            <div class="stat-box">
-                <div class="number" id="totalCount">0</div>
-                <div class="label">کل رزروها</div>
-            </div>
-            <div class="stat-box">
-                <div class="number" id="todayCount">0</div>
-                <div class="label">رزرو امروز</div>
-            </div>
+    <!-- نوار ابزار -->
+    <div class="toolbar no-print">
+        <input type="text" id="searchInput" placeholder="🔍 جستجوی نام یا تلفن..." oninput="filterTable()">
+        <div class="btn-group">
+            <button class="btn btn-blue" onclick="exportCSV()">📥 خروجی CSV</button>
+            <button class="btn btn-purple" onclick="window.print()">🖨️ چاپ</button>
+            <button class="btn btn-red" onclick="clearAll()">🗑️ پاک کردن همه</button>
         </div>
+    </div>
 
-        <!-- لیست رزروها -->
-        <div id="reservationsList">
-            <div class="empty-state">
-                <i class="fas fa-calendar-check"></i>
-                <p>در حال بارگذاری...</p>
-            </div>
-        </div>
-
-        <!-- دکمه‌ها -->
-        <div class="footer-actions">
-            <button class="btn-clear-all" onclick="clearAll()">
-                <i class="fas fa-trash-alt"></i> پاک کردن همه
-            </button>
-        </div>
-
+    <!-- لیست رزروها -->
+    <div id="reservationsList">
+        <p class="empty">در حال بارگذاری...</p>
     </div>
 </div>
 
 <script>
-    // ===== بارگذاری رزروها =====
+    // ============================
+    // 1. تابع اصلی بارگذاری و رندر جدول
+    // ============================
     function loadReservations() {
         const list = document.getElementById('reservationsList');
-        const data = JSON.parse(localStorage.getItem('reservations')) || [];
+        let data = JSON.parse(localStorage.getItem('reservations')) || [];
 
-        // به‌روزرسانی آمار
-        document.getElementById('totalCount').textContent = data.length;
+        // --- اضافه کردن تاریخ ثبت به رزروهای قدیمی (برای اطمینان) ---
+        let changed = false;
+        data = data.map(item => {
+            if (!item.createdAt) {
+                item.createdAt = new Date().toISOString();
+                changed = true;
+            }
+            return item;
+        });
+        if (changed) {
+            localStorage.setItem('reservations', JSON.stringify(data));
+        }
 
-        // محاسبه رزروهای امروز
-        const today = new Date().toISOString().split('T')[0];
-        const todayReservations = data.filter(item => item.checkin === today);
-        document.getElementById('todayCount').textContent = todayReservations.length;
+        // --- بروزرسانی آمار ---
+        updateStats(data);
 
+        // --- اگر داده‌ای وجود نداشت ---
         if (data.length === 0) {
-            list.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>هیچ رزروی ثبت نشده است.</p>
-                </div>
-            `;
+            list.innerHTML = '<p class="empty">🎯 هیچ رزروی ثبت نشده است.</p>';
             return;
         }
 
-        let html = `<div class="reservation-list">`;
+        // --- ساخت جدول ---
+        let html = `<div class="table-responsive"><table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام</th>
+                    <th>تلفن</th>
+                    <th>تاریخ ورود</th>
+                    <th>تاریخ خروج</th>
+                    <th>تعداد مهمان</th>
+                    <th>تاریخ ثبت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">`;
 
         data.forEach((item, index) => {
-            // تاریخ شمسی‌سازی ساده
-            const checkin = item.checkin ? new Date(item.checkin).toLocaleDateString('fa-IR') : '-';
-            const checkout = item.checkout ? new Date(item.checkout).toLocaleDateString('fa-IR') : '-';
+            // فرمت تاریخ ثبت به شمسی
+            let registerDate = '-';
+            if (item.createdAt) {
+                const d = new Date(item.createdAt);
+                registerDate = d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
 
-            html += `
-                <div class="reservation-item">
-                    <div class="info">
-                        <span class="name">${item.name || 'نامشخص'}</span>
-                        <span class="detail"><i class="fas fa-phone"></i> ${item.phone || '-'}</span>
-                        <span class="detail"><i class="fas fa-calendar-alt"></i> ورود: ${checkin}</span>
-                        <span class="detail"><i class="fas fa-calendar-alt"></i> خروج: ${checkout}</span>
-                        <span class="detail"><i class="fas fa-users"></i> ${item.guests || 1} نفر</span>
+            html += `<tr data-index="${index}">
+                <td>${index + 1}</td>
+                <td class="col-name">${item.name || '-'}</td>
+                <td class="col-phone">${item.phone || '-'}</td>
+                <td>${item.checkin || '-'}</td>
+                <td>${item.checkout || '-'}</td>
+                <td>${item.guests || '-'}</td>
+                <td>${registerDate}</td>
+                <td>
+                    <div class="action-btns">
+                        <button class="btn-sm btn-edit" onclick="editReservation(${index})">✏️</button>
+                        <button class="btn-sm btn-del" onclick="deleteReservation(${index})">🗑️</button>
                     </div>
-                    <div class="actions">
-                        <button class="btn-delete" onclick="deleteReservation(${index})">
-                            <i class="fas fa-times"></i> حذف
-                        </button>
-                    </div>
-                </div>
-            `;
+                </td>
+            </tr>`;
         });
 
-        html += `</div>`;
+        html += `</tbody></table></div>`;
         list.innerHTML = html;
     }
 
-    // ===== حذف یک رزرو =====
+    // ============================
+    // 2. بروزرسانی آمار
+    // ============================
+    function updateStats(data) {
+        document.getElementById('totalCount').innerText = data.length;
+
+        // محاسبه رزروهای امروز (بر اساس تاریخ ورود)
+        const today = new Date().toLocaleDateString('fa-IR');
+        let todayReserves = 0;
+        data.forEach(item => {
+            if (item.checkin) {
+                // تاریخ ورود را به فرمت عددی قابل مقایسه تبدیل می‌کنیم
+                if (item.checkin === today) {
+                    todayReserves++;
+                }
+            }
+        });
+        document.getElementById('todayCount').innerText = todayReserves;
+    }
+
+    // ============================
+    // 3. جستجو / فیلتر
+    // ============================
+    function filterTable() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase().trim();
+        const rows = document.querySelectorAll('#tableBody tr');
+        if (!rows.length) return;
+
+        rows.forEach(row => {
+            const name = row.querySelector('.col-name')?.innerText?.toLowerCase() || '';
+            const phone = row.querySelector('.col-phone')?.innerText?.toLowerCase() || '';
+            if (name.includes(filter) || phone.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // ============================
+    // 4. ویرایش رزرو
+    // ============================
+    function editReservation(index) {
+        let data = JSON.parse(localStorage.getItem('reservations')) || [];
+        if (index < 0 || index >= data.length) {
+            alert('رزرو مورد نظر یافت نشد!');
+            return;
+        }
+        const item = data[index];
+
+        // گرفتن اطلاعات جدید از طریق پنجره‌های گفتگو
+        const newName = prompt('نام جدید:', item.name || '');
+        if (newName === null) return; // انصراف
+        const newPhone = prompt('تلفن جدید:', item.phone || '');
+        if (newPhone === null) return;
+        const newCheckin = prompt('تاریخ ورود جدید (مثلا 1403/02/15):', item.checkin || '');
+        if (newCheckin === null) return;
+        const newCheckout = prompt('تاریخ خروج جدید:', item.checkout || '');
+        if (newCheckout === null) return;
+        const newGuests = prompt('تعداد مهمان جدید:', item.guests || '');
+        if (newGuests === null) return;
+
+        // بروزرسانی آبجکت
+        data[index] = {
+            ...item,
+            name: newName.trim() || item.name,
+            phone: newPhone.trim() || item.phone,
+            checkin: newCheckin.trim() || item.checkin,
+            checkout: newCheckout.trim() || item.checkout,
+            guests: newGuests.trim() || item.guests,
+            // createdAt را حفظ می‌کنیم
+        };
+
+        localStorage.setItem('reservations', JSON.stringify(data));
+        loadReservations(); // ریلود جدول
+        // فیلتر جاری را دوباره اعمال کن
+        filterTable();
+    }
+
+    // ============================
+    // 5. حذف تکی
+    // ============================
     function deleteReservation(index) {
         if (!confirm('آیا از حذف این رزرو مطمئن هستید؟')) return;
         let data = JSON.parse(localStorage.getItem('reservations')) || [];
         data.splice(index, 1);
         localStorage.setItem('reservations', JSON.stringify(data));
         loadReservations();
+        filterTable(); // اعمال مجدد فیلتر
     }
 
-    // ===== پاک کردن همه =====
+    // ============================
+    // 6. پاک کردن همه
+    // ============================
     function clearAll() {
         if (!confirm('⚠️ همه رزروها به طور کامل حذف شوند؟')) return;
         localStorage.removeItem('reservations');
         loadReservations();
     }
 
-    // ===== بارگذاری اولیه =====
-    document.addEventListener('DOMContentLoaded', loadReservations);
+    // ============================
+    // 7. خروجی CSV (اکسل)
+    // ============================
+    function exportCSV() {
+        let data = JSON.parse(localStorage.getItem('reservations')) || [];
+        if (data.length === 0) {
+            alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+            return;
+        }
+
+        // سطر هدر
+        let csv = '\uFEFF'; // BOM برای پشتیبانی از فارسی در اکسل
+        csv += 'نام,تلفن,تاریخ ورود,تاریخ خروج,تعداد مهمان,تاریخ ثبت\n';
+
+        data.forEach(item => {
+            let registerDate = '-';
+            if (item.createdAt) {
+                registerDate = new Date(item.createdAt).toLocaleDateString('fa-IR');
+            }
+            csv += `${item.name || ''},${item.phone || ''},${item.checkin || ''},${item.checkout || ''},${item.guests || ''},${registerDate}\n`;
+        });
+
+        // دانلود فایل
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `لیست_رزروها_${new Date().toLocaleDateString('fa-IR')}.csv`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
+    // ============================
+    // بارگذاری اولیه
+    // ============================
+    window.onload = loadReservations;
 </script>
 
 </body>
