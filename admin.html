@@ -15,96 +15,16 @@
             background: #f1f5f9;
             padding: 20px;
             color: #0f172a;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-
-        /* ===== صفحه ورود ===== */
-        .login-container {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 40px 36px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            text-align: center;
-        }
-        .login-container h2 {
-            font-size: 26px;
-            color: #0f172a;
-            margin-bottom: 6px;
-        }
-        .login-container .sub {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-        .login-container .form-group {
-            margin-bottom: 18px;
-            text-align: right;
-        }
-        .login-container label {
-            display: block;
-            font-weight: 600;
-            font-size: 14px;
-            color: #1e293b;
-            margin-bottom: 4px;
-        }
-        .login-container input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 14px;
-            transition: 0.2s;
-            background: #fafcff;
-        }
-        .login-container input:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
-        }
-        .login-container .btn-login {
-            width: 100%;
-            padding: 14px;
-            background: #2563eb;
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 6px;
-        }
-        .login-container .btn-login:hover {
-            background: #1d4ed8;
-            transform: scale(1.01);
-        }
-        .login-container .error {
-            color: #dc2626;
-            font-size: 14px;
-            margin-top: 12px;
-            display: none;
-        }
-        .login-container .error.show {
-            display: block;
-        }
-
-        /* ===== پنل اصلی (بعد از ورود) ===== */
-        .panel-container {
+        .container {
             max-width: 1100px;
             margin: 0 auto;
             background: #ffffff;
             border-radius: 16px;
             padding: 28px 30px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            width: 100%;
-            display: none;
         }
-        .panel-container .header {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -112,54 +32,45 @@
             gap: 12px;
             margin-bottom: 6px;
         }
-        .panel-container .header h1 {
+        .header h1 {
             font-size: 24px;
             font-weight: 700;
             color: #0f172a;
         }
-        .panel-container .header .sub {
+        .header .sub {
             color: #64748b;
             font-size: 14px;
             margin-top: 2px;
         }
-        .panel-container .header .back-link {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            transition: 0.2s;
-        }
-        .panel-container .header .back-link:hover {
-            background: #f1f5f9;
-            border-color: #94a3b8;
-        }
-        .panel-container .header .logout-btn {
-            background: transparent;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            padding: 8px 16px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #dc2626;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .panel-container .header .logout-btn:hover {
-            background: #fef2f2;
-            border-color: #dc2626;
-        }
-        .panel-container .header .left-btns {
+        .header-actions {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
+        .btn-link {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            height: 36px;
+            color: #fff;
+        }
+        .btn-back {
+            background: #1e293b;
+        }
+        .btn-back:hover {
+            background: #0f172a;
+            transform: scale(1.02);
+        }
+
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -187,6 +98,7 @@
         .stat-card.highlight .number {
             color: #2563eb;
         }
+
         .toolbar {
             display: flex;
             flex-wrap: wrap;
@@ -224,6 +136,7 @@
             background: #b91c1c;
             transform: scale(1.02);
         }
+
         .btn-sm {
             padding: 4px 14px;
             border: none;
@@ -239,6 +152,7 @@
         .btn-sm:hover {
             background: #dc2626;
         }
+
         .table-wrap {
             overflow-x: auto;
             border-radius: 12px;
@@ -300,10 +214,11 @@
                 background: #fff;
                 padding: 10px;
             }
-            .toolbar {
+            .toolbar,
+            .header-actions {
                 display: none !important;
             }
-            .panel-container {
+            .container {
                 box-shadow: none;
                 border: 1px solid #ddd;
                 padding: 16px;
@@ -318,19 +233,22 @@
             th {
                 background: #eee !important;
             }
-            .header .left-btns {
-                display: none !important;
-            }
         }
+
         @media (max-width: 640px) {
             body {
                 padding: 12px;
             }
-            .panel-container {
+            .container {
                 padding: 16px;
             }
-            .panel-container .header h1 {
-                font-size: 20px;
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .header-actions {
+                justify-content: flex-start;
             }
             .stats {
                 grid-template-columns: 1fr 1fr;
@@ -339,52 +257,23 @@
             .toolbar {
                 justify-content: center;
             }
-            .login-container {
-                padding: 28px 20px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================ -->
-    <!-- صفحه ورود -->
-    <!-- ============================================================ -->
-    <div id="loginPage" class="login-container">
-        <h2>🔐 ورود به پنل</h2>
-        <div class="sub">لطفاً مشخصات مدیر را وارد کنید</div>
+    <div class="container">
 
-        <div class="form-group">
-            <label>نام کاربری</label>
-            <input type="text" id="usernameInput" placeholder="admin" value="admin">
-        </div>
-        <div class="form-group">
-            <label>رمز عبور</label>
-            <input type="password" id="passwordInput" placeholder="********">
-        </div>
-
-        <button class="btn-login" onclick="login()">ورود</button>
-        <div id="loginError" class="error">نام کاربری یا رمز عبور اشتباه است.</div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- پنل مدیریت (بعد از ورود) -->
-    <!-- ============================================================ -->
-    <div id="panelPage" class="panel-container">
-
-        <!-- هدر با لینک برگشت به سایت و خروج -->
         <div class="header">
             <div>
                 <h1>📋 مدیریت رزروها</h1>
                 <div class="sub">پنل ادمین · مشاهده و حذف رزروها</div>
             </div>
-            <div class="left-btns">
-                <a href="index.html" class="back-link">🏠 بازگشت به سایت</a>
-                <button class="logout-btn" onclick="logout()">خروج</button>
+            <div class="header-actions">
+                <a href="index.html" class="btn-link btn-back">🏠 برگشت به سایت</a>
             </div>
         </div>
 
-        <!-- آمار -->
         <div class="stats">
             <div class="stat-card highlight">
                 <div class="label">مجموع رزروها</div>
@@ -396,13 +285,11 @@
             </div>
         </div>
 
-        <!-- دکمه‌ها -->
         <div class="toolbar no-print">
             <button class="btn btn-print" onclick="window.print()">🖨️ چاپ</button>
             <button class="btn btn-danger" onclick="clearAll()">🗑️ حذف همه</button>
         </div>
 
-        <!-- لیست رزروها -->
         <div id="reservationsList">
             <div class="empty">در حال بارگذاری...</div>
         </div>
@@ -411,66 +298,7 @@
 
     <script>
         // ================================================================
-        // اطلاعات ورود (سخت‌کد شده)
-        // ================================================================
-        const ADMIN_USER = 'admin';
-        const ADMIN_PASS = '13859358';
-
-        // ================================================================
-        // توابع ورود و خروج
-        // ================================================================
-        function login() {
-            const username = document.getElementById('usernameInput').value.trim();
-            const password = document.getElementById('passwordInput').value.trim();
-            const errorEl = document.getElementById('loginError');
-
-            if (username === ADMIN_USER && password === ADMIN_PASS) {
-                // ذخیره در sessionStorage برای ماندگاری در همان جلسه
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                showPanel();
-                errorEl.classList.remove('show');
-            } else {
-                errorEl.classList.add('show');
-                document.getElementById('passwordInput').value = '';
-                document.getElementById('passwordInput').focus();
-            }
-        }
-
-        function logout() {
-            sessionStorage.removeItem('adminLoggedIn');
-            showLogin();
-        }
-
-        // ================================================================
-        // نمایش/مخفی کردن صفحات
-        // ================================================================
-        function showPanel() {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('panelPage').style.display = 'block';
-            loadReservations(); // بارگذاری داده‌ها
-        }
-
-        function showLogin() {
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('panelPage').style.display = 'none';
-            document.getElementById('loginError').classList.remove('show');
-            document.getElementById('usernameInput').value = 'admin';
-            document.getElementById('passwordInput').value = '';
-        }
-
-        // ================================================================
-        // بررسی وضعیت ورود در هنگام بارگذاری صفحه
-        // ================================================================
-        window.onload = function() {
-            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-                showPanel();
-            } else {
-                showLogin();
-            }
-        };
-
-        // ================================================================
-        // توابع تبدیل تاریخ
+        // تبدیل تاریخ میلادی به شمسی
         // ================================================================
         function toPersianDate(dateStr) {
             if (!dateStr) return '-';
@@ -507,7 +335,7 @@
         }
 
         // ================================================================
-        // اصلاح داده‌ها (اضافه کردن createdAt به رزروهای قدیمی)
+        // اصلاح داده‌ها
         // ================================================================
         function fixReservationsData() {
             let data = JSON.parse(localStorage.getItem('reservations')) || [];
@@ -525,7 +353,7 @@
         }
 
         // ================================================================
-        // بارگذاری و نمایش رزروها
+        // بارگذاری رزروها
         // ================================================================
         function loadReservations() {
             const container = document.getElementById('reservationsList');
@@ -545,8 +373,8 @@
                                 <th>#</th>
                                 <th>نام</th>
                                 <th>تلفن</th>
-                                <th>تاریخ ورود</th>
-                                <th>تاریخ خروج</th>
+                                <th>تاریخ ورود (شمسی)</th>
+                                <th>تاریخ خروج (شمسی)</th>
                                 <th>تعداد مهمان</th>
                                 <th>تاریخ ثبت</th>
                                 <th>عملیات</th>
@@ -611,4 +439,27 @@
         // حذف تکی
         // ================================================================
         function deleteReservation(index) {
-            if (!confirm('آیا از حذف این رزرو اط
+            if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
+            let data = JSON.parse(localStorage.getItem('reservations')) || [];
+            data.splice(index, 1);
+            localStorage.setItem('reservations', JSON.stringify(data));
+            loadReservations();
+        }
+
+        // ================================================================
+        // حذف همه
+        // ================================================================
+        function clearAll() {
+            if (!confirm('⚠️ همه رزروها به طور دائمی حذف شوند؟')) return;
+            localStorage.removeItem('reservations');
+            loadReservations();
+        }
+
+        // ================================================================
+        // بارگذاری اولیه
+        // ================================================================
+        window.onload = loadReservations;
+    </script>
+
+</body>
+</html>
