@@ -3,399 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل مدیریت رزروها</title>
+    <title>ثبت رزرو | چایباغ</title>
     <style>
-        /* ---------- ریست و فونت ---------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
             background: #f0f4f8;
             padding: 20px;
-            color: #1e293b;
-        }
-
-        /* ---------- کانتینر اصلی ---------- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 30px 32px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        }
-
-        /* ---------- هدر ---------- */
-        .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            max-width: 500px;
+            width: 100%;
+            padding: 32px 28px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #0f172a;
+            font-size: 24px;
             margin-bottom: 8px;
         }
-        .header h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0f172a;
-            letter-spacing: -0.3px;
-        }
-        .header .sub {
+        .sub {
+            text-align: center;
             color: #64748b;
             font-size: 14px;
-            margin-top: 2px;
+            margin-bottom: 28px;
         }
-
-        /* ---------- کارت‌های آمار ---------- */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin: 24px 0 28px 0;
+        .form-group {
+            margin-bottom: 18px;
         }
-        .stat-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px 18px;
-            text-align: center;
-        }
-        .stat-card .label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #64748b;
-        }
-        .stat-card .number {
-            font-size: 30px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-top: 4px;
-        }
-        .stat-card.highlight .number {
-            color: #2563eb;
-        }
-
-        /* ---------- نوار ابزار (چاپ و حذف همه) ---------- */
-        .toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #e9edf2;
-        }
-        .btn {
-            padding: 8px 22px;
-            border: none;
-            border-radius: 30px;
+        label {
+            display: block;
             font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-            height: 42px;
-            color: #fff;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn-print {
-            background: #1e293b;
-        }
-        .btn-print:hover {
-            background: #0f172a;
-            transform: scale(1.02);
-        }
-        .btn-danger {
-            background: #dc2626;
-        }
-        .btn-danger:hover {
-            background: #b91c1c;
-            transform: scale(1.02);
-        }
-
-        /* ---------- دکمه حذف تکی ---------- */
-        .btn-sm {
-            padding: 4px 16px;
-            border: none;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            color: #fff;
-            background: #ef4444;
-            height: 30px;
-            transition: 0.15s;
-        }
-        .btn-sm:hover {
-            background: #dc2626;
-        }
-
-        /* ---------- جدول ---------- */
-        .table-wrap {
-            overflow-x: auto;
-            border-radius: 14px;
-            border: 1px solid #e9edf2;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            min-width: 620px;
-        }
-        th {
-            background: #f8fafc;
-            color: #334155;
-            font-weight: 700;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            padding: 14px 12px;
-            border-bottom: 2px solid #e2e8f0;
-            text-align: center;
-        }
-        td {
-            padding: 14px 12px;
-            text-align: center;
-            border-bottom: 1px solid #eef2f6;
             color: #1e293b;
-            vertical-align: middle;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        tr:hover td {
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d9e6;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: 0.2s;
             background: #fafcff;
         }
-
-        .badge {
-            background: #e9edf2;
-            padding: 2px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #475569;
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-
-        .empty {
-            padding: 60px 20px;
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 8px;
+        }
+        .btn-submit:hover {
+            background: #1d4ed8;
+            transform: scale(1.01);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
-            color: #94a3b8;
-            font-size: 15px;
+            font-weight: 500;
+            display: none;
         }
-
-        /* ---------- حالت چاپ ---------- */
-        @media print {
-            body {
-                background: #fff;
-                padding: 10px;
-            }
-            .toolbar {
-                display: none !important;
-            }
-            .container {
-                box-shadow: none;
-                border: 1px solid #ddd;
-                padding: 16px;
-            }
-            .stat-card {
-                border: 1px solid #ccc;
-                background: #f9f9f9;
-            }
-            .btn-sm {
-                display: none;
-            }
-            th {
-                background: #eee !important;
-            }
+        .message.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
         }
-
-        /* ---------- موبایل ---------- */
-        @media (max-width: 640px) {
-            body {
-                padding: 12px;
-            }
-            .container {
-                padding: 18px;
-            }
-            .header h1 {
-                font-size: 20px;
-            }
-            .stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .toolbar {
-                justify-content: center;
-            }
+        .message.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .link-admin {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #64748b;
+            font-size: 13px;
+        }
+        .link-admin a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .link-admin a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <h2>🏡 ثبت رزرو چایباغ</h2>
+        <div class="sub">اطلاعات خود را وارد کنید</div>
 
-        <!-- هدر -->
-        <div class="header">
-            <div>
-                <h1>📋 مدیریت رزروها</h1>
-                <div class="sub">پنل ادمین · مشاهده و حذف رزروها</div>
+        <form id="reservationForm">
+            <div class="form-group">
+                <label>نام و نام خانوادگی</label>
+                <input type="text" id="name" placeholder="مثال: فربد یداللهی" required>
             </div>
-        </div>
 
-        <!-- آمار -->
-        <div class="stats">
-            <div class="stat-card highlight">
-                <div class="label">مجموع رزروها</div>
-                <div class="number" id="totalCount">۰</div>
+            <div class="form-group">
+                <label>شماره تلفن</label>
+                <input type="tel" id="phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" required>
             </div>
-            <div class="stat-card">
-                <div class="label">📅 رزروهای امروز</div>
-                <div class="number" id="todayCount">۰</div>
+
+            <div class="form-group">
+                <label>تاریخ ورود</label>
+                <input type="date" id="checkin" required>
             </div>
-        </div>
 
-        <!-- دکمه‌ها -->
-        <div class="toolbar no-print">
-            <button class="btn btn-print" onclick="window.print()">🖨️ چاپ</button>
-            <button class="btn btn-danger" onclick="clearAll()">🗑️ حذف همه</button>
-        </div>
+            <div class="form-group">
+                <label>تاریخ خروج</label>
+                <input type="date" id="checkout" required>
+            </div>
 
-        <!-- لیست رزروها -->
-        <div id="reservationsList">
-            <div class="empty">در حال بارگذاری...</div>
-        </div>
+            <div class="form-group">
+                <label>تعداد مهمانان</label>
+                <input type="number" id="guests" min="1" max="20" placeholder="مثلاً ۲" required>
+            </div>
 
+            <button type="submit" class="btn-submit" id="submitBtn">ثبت رزرو</button>
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <div class="link-admin">
+            👤 <a href="admin.html">ورود به پنل مدیریت</a>
+        </div>
     </div>
 
     <script>
         // ================================================================
-        // ۱. تابع اصلی: بارگذاری و نمایش رزروها
+        // ثبت رزرو جدید در localStorage
         // ================================================================
-        function loadReservations() {
-            const container = document.getElementById('reservationsList');
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-            // دریافت داده از localStorage
-            let data = JSON.parse(localStorage.getItem('reservations')) || [];
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            const guests = document.getElementById('guests').value.trim();
 
-            // اگر داده‌ای وجود نداشت
-            if (data.length === 0) {
-                container.innerHTML = '<div class="empty">هیچ رزروی ثبت نشده است.</div>';
-                updateStats(data);
+            // اعتبارسنجی ساده
+            if (!name || !phone || !checkin || !checkout || !guests) {
+                showMessage('لطفاً همه فیلدها را پر کنید.', 'error');
                 return;
             }
 
-            // ساخت جدول
-            let html = `
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نام</th>
-                                <th>تلفن</th>
-                                <th>تاریخ ورود</th>
-                                <th>تاریخ خروج</th>
-                                <th>تعداد مهمان</th>
-                                <th>تاریخ ثبت</th>
-                                <th>عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
+            if (phone.length < 10) {
+                showMessage('شماره تلفن معتبر نیست.', 'error');
+                return;
+            }
 
-            data.forEach((item, index) => {
-                // تاریخ ثبت را به شمسی نمایش بده
-                let registerDate = '-';
-                if (item.createdAt) {
-                    try {
-                        const d = new Date(item.createdAt);
-                        if (!isNaN(d.getTime())) {
-                            registerDate = d.toLocaleDateString('fa-IR', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            });
-                        }
-                    } catch { /* ignore */ }
-                }
+            if (new Date(checkin) > new Date(checkout)) {
+                showMessage('تاریخ ورود نمی‌تواند از تاریخ خروج جدیدتر باشد.', 'error');
+                return;
+            }
 
-                html += `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${item.name || '-'}</td>
-                        <td>${item.phone || '-'}</td>
-                        <td>${item.checkin || '-'}</td>
-                        <td>${item.checkout || '-'}</td>
-                        <td><span class="badge">${item.guests || '۰'}</span></td>
-                        <td>${registerDate}</td>
-                        <td>
-                            <button class="btn-sm" onclick="deleteReservation(${index})">حذف</button>
-                        </td>
-                    </tr>
-                `;
-            });
+            // ============================================================
+            // ★★★ نکته مهم: تاریخ ورود و خروج به فرمت YYYY-MM-DD ذخیره می‌شود ★★★
+            // ============================================================
 
-            html += `
-                        </tbody>
-                    </table>
-                </div>
-            `;
+            // ساخت آبجکت رزرو
+            const reservation = {
+                name: name,
+                phone: phone,
+                checkin: checkin,          // ← فرمت: 2026-07-28
+                checkout: checkout,        // ← فرمت: 2026-07-30
+                guests: guests,
+                createdAt: new Date().toISOString() // ← زمان ثبت به میلادی
+            };
 
-            container.innerHTML = html;
+            // دریافت رزروهای قبلی
+            let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
 
-            // بروزرسانی آمار
-            updateStats(data);
+            // اضافه کردن رزرو جدید
+            reservations.push(reservation);
+
+            // ذخیره در localStorage
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+
+            // پیام موفقیت
+            showMessage('✅ رزرو شما با موفقیت ثبت شد!', 'success');
+
+            // خالی کردن فرم
+            document.getElementById('reservationForm').reset();
+
+            // غیرفعال کردن دکمه برای ۲ ثانیه (جلوگیری از ثبت تکراری)
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            setTimeout(() => { btn.disabled = false; }, 2000);
+        });
+
+        // ================================================================
+        // نمایش پیام
+        // ================================================================
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = 'message ' + type;
+            // بعد از ۴ ثانیه پیام را مخفی کن
+            clearTimeout(window.msgTimeout);
+            window.msgTimeout = setTimeout(() => {
+                msg.className = 'message';
+            }, 4000);
         }
 
         // ================================================================
-        // ۲. تابع آمار (با مقایسه‌ی دقیق تاریخ میلادی)
+        // تنظیم حداقل تاریخ ورود به امروز (اختیاری)
         // ================================================================
-        function updateStats(data) {
-            // تعداد کل
-            document.getElementById('totalCount').innerText = data.length;
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkin').setAttribute('min', today);
+            document.getElementById('checkout').setAttribute('min', today);
+        });
 
-            // ---- محاسبه رزروهای امروز ----
-            const today = new Date();
-            // تاریخ امروز به فرمت میلادی YYYY-MM-DD
-            const todayStr =
-                today.getFullYear() + '-' +
-                String(today.getMonth() + 1).padStart(2, '0') + '-' +
-                String(today.getDate()).padStart(2, '0');
-
-            // فیلتر کردن رزروهایی که تاریخ ورودشان با امروز برابر است
-            const todayReserves = data.filter(item => item.checkin === todayStr).length;
-
-            document.getElementById('todayCount').innerText = todayReserves;
-        }
-
-        // ================================================================
-        // ۳. حذف یک رزرو
-        // ================================================================
-        function deleteReservation(index) {
-            if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
-
-            let data = JSON.parse(localStorage.getItem('reservations')) || [];
-            data.splice(index, 1);
-            localStorage.setItem('reservations', JSON.stringify(data));
-            loadReservations(); // ریلود لیست
-        }
-
-        // ================================================================
-        // ۴. حذف همه رزروها
-        // ================================================================
-        function clearAll() {
-            if (!confirm('⚠️ همه رزروها به طور دائمی حذف شوند؟')) return;
-            localStorage.removeItem('reservations');
-            loadReservations();
-        }
-
-        // ================================================================
-        // ۵. بارگذاری اولیه
-        // ================================================================
-        window.onload = loadReservations;
+        // وقتی تاریخ ورود تغییر کرد، حداقل تاریخ خروج را به‌روز کن
+        document.getElementById('checkin').addEventListener('change', function() {
+            const checkinVal = this.value;
+            document.getElementById('checkout').setAttribute('min', checkinVal);
+            if (document.getElementById('checkout').value < checkinVal) {
+                document.getElementById('checkout').value = '';
+            }
+        });
     </script>
 
 </body>
