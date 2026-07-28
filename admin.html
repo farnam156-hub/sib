@@ -130,7 +130,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            min-width: 600px;
+            min-width: 750px;
         }
         th {
             background: #f8fafc;
@@ -169,6 +169,12 @@
             text-align: center;
             color: #94a3b8;
             font-size: 15px;
+        }
+        .date-miladi {
+            font-size: 11px;
+            color: #94a3b8;
+            display: block;
+            margin-top: 2px;
         }
         @media print {
             body {
@@ -249,21 +255,18 @@
 
     <script>
         // ================================================================
-        // ۱. تبدیل تاریخ میلادی به شمسی با ساعت و دقیقه (دقیق)
+        // ۱. تبدیل تاریخ میلادی به شمسی (فقط تاریخ)
         // ================================================================
-        function toPersianDateTime(dateStr) {
+        function toPersianDate(dateStr) {
             if (!dateStr) return '-';
             try {
                 const d = new Date(dateStr);
                 if (isNaN(d.getTime())) return dateStr;
-                // ★★★ تنظیم منطقه زمانی تهران برای تبدیل دقیق ★★★
                 return d.toLocaleDateString('fa-IR', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    timeZone: 'Asia/Tehran'   // ← این خط را اضافه کنید
+                    timeZone: 'Asia/Tehran'
                 });
             } catch {
                 return dateStr;
@@ -271,7 +274,28 @@
         }
 
         // ================================================================
-        // ۲. اصلاح اجباری داده‌ها (اضافه کردن createdAt به همه)
+        // ۲. تبدیل تاریخ میلادی به شمسی با ساعت و دقیقه
+        // ================================================================
+        function toPersianDateTime(dateStr) {
+            if (!dateStr) return '-';
+            try {
+                const d = new Date(dateStr);
+                if (isNaN(d.getTime())) return dateStr;
+                return d.toLocaleDateString('fa-IR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Asia/Tehran'
+                });
+            } catch {
+                return dateStr;
+            }
+        }
+
+        // ================================================================
+        // ۳. اصلاح اجباری داده‌ها (اضافه کردن createdAt به همه)
         // ================================================================
         function fixReservationsData() {
             let data = JSON.parse(localStorage.getItem('reservations')) || [];
@@ -293,7 +317,7 @@
         }
 
         // ================================================================
-        // ۳. بارگذاری و نمایش رزروها
+        // ۴. بارگذاری و نمایش رزروها
         // ================================================================
         function loadReservations() {
             const container = document.getElementById('reservationsList');
@@ -313,8 +337,8 @@
                                 <th>#</th>
                                 <th>نام</th>
                                 <th>تلفن</th>
-                                <th>تاریخ ورود</th>
-                                <th>تاریخ خروج</th>
+                                <th>تاریخ ورود (شمسی)</th>
+                                <th>تاریخ خروج (شمسی)</th>
                                 <th>تعداد مهمان</th>
                                 <th>تاریخ ثبت</th>
                                 <th>عملیات</th>
@@ -324,8 +348,9 @@
             `;
 
             data.forEach((item, index) => {
-                const checkin = item.checkin || '-';
-                const checkout = item.checkout || '-';
+                // ★★★ تبدیل تاریخ ورود و خروج به شمسی ★★★
+                const checkinPersian = toPersianDate(item.checkin);
+                const checkoutPersian = toPersianDate(item.checkout);
                 const createdAtPersian = toPersianDateTime(item.createdAt);
 
                 html += `
@@ -333,8 +358,14 @@
                         <td>${index + 1}</td>
                         <td>${item.name || '-'}</td>
                         <td>${item.phone || '-'}</td>
-                        <td>${checkin}</td>
-                        <td>${checkout}</td>
+                        <td>
+                            ${checkinPersian}
+                            <span class="date-miladi">${item.checkin || '-'}</span>
+                        </td>
+                        <td>
+                            ${checkoutPersian}
+                            <span class="date-miladi">${item.checkout || '-'}</span>
+                        </td>
                         <td><span class="badge">${item.guests || '۰'}</span></td>
                         <td>${createdAtPersian}</td>
                         <td>
@@ -354,7 +385,7 @@
         }
 
         // ================================================================
-        // ۴. بروزرسانی آمار
+        // ۵. بروزرسانی آمار
         // ================================================================
         function updateStats(data) {
             document.getElementById('totalCount').innerText = data.length;
@@ -370,7 +401,7 @@
         }
 
         // ================================================================
-        // ۵. حذف یک رزرو
+        // ۶. حذف یک رزرو
         // ================================================================
         function deleteReservation(index) {
             if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
@@ -381,7 +412,7 @@
         }
 
         // ================================================================
-        // ۶. حذف همه
+        // ۷. حذف همه
         // ================================================================
         function clearAll() {
             if (!confirm('⚠️ همه رزروها به طور دائمی حذف شوند؟')) return;
@@ -390,7 +421,7 @@
         }
 
         // ================================================================
-        // ۷. بارگذاری اولیه
+        // ۸. بارگذاری اولیه
         // ================================================================
         window.onload = loadReservations;
     </script>
