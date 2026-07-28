@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اخبار و رویدادها | چای‌باغ</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* استایل‌های اختصاصی صفحه اخبار */
+        .news-page-hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            padding: 120px 20px 60px;
+            text-align: center;
+            margin-top: var(--header-h);
+        }
+        .news-page-hero h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+        }
+        .news-page-hero p {
+            font-size: 1.05rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 10px auto 0;
+        }
+        .news-page-hero .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-light);
+            text-decoration: none;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .news-page-hero .back-link:hover {
+            color: #fff;
+            gap: 10px;
+        }
+
+        .news-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 40px 0;
+        }
+        .news-card-full {
+            background: var(--card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+        .news-card-full:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .news-card-full img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .news-card-full .content {
+            padding: 20px;
+        }
+        .news-card-full .date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .news-card-full .content h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .news-card-full .content p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .news-card-full .content .tag {
+            display: inline-block;
+            background: var(--accent-lighter);
+            color: var(--primary);
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* هیچ خبری وجود ندارد */
+        .no-news {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .no-news i {
+            font-size: 3rem;
+            color: var(--border);
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .news-page-hero { padding: 100px 16px 40px; }
+            .news-page-hero h1 { font-size: 1.7rem; }
+            .news-grid-full { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== هدر (مشابه سایت اصلی) ===== -->
+    <header class="header" id="header">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            <a href="index.html" style="text-decoration:none; color:inherit;">چای‌باغ</a>
+        </div>
+        <nav class="nav" id="nav">
+            <a href="index.html#hero">خانه</a>
+            <a href="index.html#about">معرفی</a>
+            <a href="index.html#products">محصولات</a>
+            <a href="news.html" class="active">اخبار</a>
+            <a href="index.html#gallery">گالری</a>
+            <a href="index.html#booking">رزرو</a>
+            <a href="index.html#contact">تماس</a>
+        </nav>
+        <button class="hamburger" id="hamburger" aria-label="منو">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ===== منوی موبایل ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#hero">خانه</a>
+        <a href="index.html#about">معرفی</a>
+        <a href="index.html#products">محصولات</a>
+        <a href="news.html">اخبار</a>
+        <a href="index.html#gallery">گالری</a>
+        <a href="index.html#booking">رزرو</a>
+        <a href="index.html#contact">تماس</a>
+    </div>
+
+    <!-- ===== هدر صفحه اخبار ===== -->
+    <section class="news-page-hero">
+        <h1>📰 اخبار و رویدادهای چای‌باغ</h1>
+        <p>آخرین رویدادها، جشنواره‌ها و اخبار روستای چای‌باغ را در اینجا بخوانید.</p>
+        <a href="index.html#news" class="back-link">
+            <i class="fas fa-arrow-left"></i> بازگشت به بخش اخبار در صفحه اصلی
+        </a>
+    </section>
+
+    <!-- ===== لیست اخبار ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="news-grid-full" id="allNewsGrid">
+                <!-- اخبار توسط جاوااسکریپت ساخته می‌شوند -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== فوتر (مشابه سایت اصلی) ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="color:#fff; margin-bottom:10px;">
+                        <i class="fas fa-leaf"></i> چای‌باغ
+                    </div>
+                    <p>روستای چای‌باغ با طبیعتی بکر و مردمی مهمان‌نواز، مقصدی ایده‌آل برای فرار از هیاهوی شهر.</p>
+                    <div class="social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>دسترسی سریع</h4>
+                    <a href="index.html#hero">خانه</a><br />
+                    <a href="index.html#about">معرفی</a><br />
+                    <a href="index.html#products">محصولات</a><br />
+                    <a href="news.html">اخبار</a><br />
+                    <a href="index.html#gallery">گالری</a><br />
+                    <a href="index.html#booking">رزرو</a>
+                </div>
+                <div>
+                    <h4>خدمات</h4>
+                    <a href="index.html#booking">اقامتگاه‌ها</a><br />
+                    <a href="index.html#contact">راهنمای سفر</a><br />
+                    <a href="index.html#contact">تماس با ما</a>
+                </div>
+                <div>
+                    <h4>اطلاعات تماس</h4>
+                    <p><i class="fas fa-phone" style="margin-left:8px;color:var(--accent-light);"></i> ۰۱۱-۳۲۲۵-۴۴۵۵</p>
+                    <p><i class="fas fa-envelope" style="margin-left:8px;color:var(--accent-light);"></i> info@chaybagh.ir</p>
+                    <div class="social" style="margin-top:8px;">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copy">© ۱۴۰۵ - تمامی حقوق برای روستای چای‌باغ محفوظ است.</div>
+        </div>
+    </footer>
+
+    <!-- ===== دکمه برگشت به بالا ===== -->
+    <button class="back-to-top" id="backToTop" aria-label="برگشت به بالا">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // ===== منوی همبرگر =====
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('show');
+            hamburger.classList.toggle('active');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('show');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // ===== هدر اسکرول =====
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // ===== دکمه برگشت به بالا =====
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) backToTop.classList.add('show');
+            else backToTop.classList.remove('show');
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== لیست اخبار (۱۰ خبر) =====
+        const allNews = [
+            {
+                title: 'جشنواره چای و آیین‌های محلی',
+                date: '۲۰ مرداد ۱۴۰۵',
+                desc: 'با حضور هنرمندان محلی و غرفه‌های صنایع‌دستی، جشنواره چای در چای‌باغ برگزار شد. این رویداد سه‌روزه با استقبال گسترده گردشگران همراه بود.',
+                img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f3e9?w=600&h=400&fit=crop&crop=center',
+                tag: 'فرهنگی'
+            },
+            {
+                title: 'مرمت پل تاریخی شاپور آغاز شد',
+                date: '۵ تیر ۱۴۰۵',
+                desc: 'با همکاری میراث فرهنگی، عملیات مرمت و استحکام‌بخشی پل ساسانی شروع شده است. این پروژه تا پایان تابستان ادامه خواهد داشت.',
+                img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop&crop=center',
+                tag: 'تاریخی'
+            },
+            {
+                title: 'جشن مردگان در چای‌باغ برگزار شد',
+                date: '۲۸ تیر ۱۴۰۵',
+                desc: 'آیین کهن جشن مردگان با حضور گسترده مردم محلی و گردشگران در آرامستان‌های روستا برگزار شد. این مراسم با پخت غذاهای محلی همراه بود.',
+                img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&crop=center',
+                tag: 'آیین‌ها'
+            },
+            {
+                title: 'افتتاح اقامتگاه بوم‌گردی جدید',
+                date: '۱۰ خرداد ۱۴۰۵',
+                desc: 'یک اقامتگاه بوم‌گردی جدید با معماری سنتی و امکانات مدرن در روستای چای‌باغ افتتاح شد. این مجموعه ظرفیت پذیرایی از ۲۰ گردشگر را دارد.',
+                img: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=400&fit=crop&crop=center',
+                tag: 'گردشگری'
+            },
+            {
+                title: 'برداشت محصول چای آغاز شد',
+                date: '۱۵ اردیبهشت ۱۴۰۵',
+                desc: 'فصل برداشت چای در باغ‌های پله‌ای چای‌باغ آغاز شد. کشاورزان محلی با برگزاری آیین‌های سنتی، این فصل را جشن گرفتند.',
+                img: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=600&h=400&fit=crop&crop=center',
+                tag: 'کشاورزی'
+            },
+            {
+                title: 'کارگاه آموزشی صنایع‌دستی',
+                date: '۱ شهریور ۱۴۰۵',
+                desc: 'کارگاه آموزشی صنایع‌دستی با هدف توانمندسازی زنان روستا برگزار شد. شرکت‌کنندگان با هنر گلیم‌بافی و سفالگری آشنا شدند.',
+                img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&crop=center',
+                tag: 'آموزشی'
+            },
+            {
+                title: 'جشن تیرگان در روستا برگزار شد',
+                date: '۱۳ تیر ۱۴۰۵',
+                desc: 'جشن باستانی تیرگان با آیین «لال شو» و آب‌پاشی در روستای چای‌باغ برگزار شد. این مراسم با استقبال پرشور اهالی و گردشگران همراه بود.',
+                img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&crop=center',
+                tag: 'آیین‌ها'
+            },
+            {
+                title: 'ثبت روستا در فهرست گردشگری',
+                date: '۲۵ مرداد ۱۴۰۵',
+                desc: 'روستای چای‌باغ به دلیل داشتن جاذبه‌های طبیعی و تاریخی، در فهرست روستاهای هدف گردشگری استان مازندران ثبت شد.',
+                img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop&crop=center',
+                tag: 'گردشگری'
+            },
+            {
+                title: 'بازدید مسئولان استانی از پل شاپور',
+                date: '۳۰ تیر ۱۴۰۵',
+                desc: 'مسئولان اداره میراث فرهنگی استان از پل تاریخی شاپور بازدید و بر تسریع عملیات مرمت آن تأکید کردند.',
+                img: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop&crop=center',
+                tag: 'تاریخی'
+            },
+            {
+                title: 'جشنواره محلی نان و کشک',
+                date: '۷ مرداد ۱۴۰۵',
+                desc: 'جشنواره نان و کشک محلی با حضور بهترین نانواهای روستا برگزار شد. بازدیدکنندگان با روش‌های سنتی پخت نان آشنا شدند.',
+                img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f3e9?w=600&h=400&fit=crop&crop=center',
+                tag: 'فرهنگی'
+            }
+        ];
+
+        // ===== رندر اخبار =====
+        const grid = document.getElementById('allNewsGrid');
+        allNews.forEach(news => {
+            const card = document.createElement('div');
+            card.className = 'news-card-full';
+            card.innerHTML = `
+                <img src="${news.img}" alt="${news.title}" loading="lazy" />
+                <div class="content">
+                    <div class="date"><i class="far fa-calendar-alt"></i> ${news.date}</div>
+                    <h3>${news.title}</h3>
+                    <p>${news.desc}</p>
+                    <span class="tag">${news.tag}</span>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
