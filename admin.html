@@ -3,398 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل ادمین حرفه‌ای | رزروها</title>
+    <title>پنل مدیریت | رزروها</title>
     <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
-            background: #e8f0fe;
+        /* ----- تنظیمات پایه ----- */
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', system-ui, sans-serif;
+            background: #f1f5f9;
+            padding: 24px;
+            color: #0f172a;
         }
         .container {
-            max-width: 1100px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #1B4332;
-            border-bottom: 3px solid #52B788;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        /* استایل باکس آمار */
-        .stats {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-        .stat-box {
-            background: #f0f9f4;
-            padding: 10px 25px;
-            border-radius: 30px;
-            border-right: 5px solid #1B4332;
-            font-weight: bold;
-            color: #1B4332;
-        }
-        .stat-box span {
-            color: #2d6a4f;
-            font-size: 1.4em;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* جعبه ابزار (جستجو و دکمه‌ها) */
+        /* ----- هدر و کارت اصلی ----- */
+        .dashboard-header {
+            margin-bottom: 28px;
+        }
+        .dashboard-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+        .dashboard-header p {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .main-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+            padding: 28px 30px;
+            transition: all 0.2s ease;
+        }
+
+        /* ----- کارت‌های آمار (استاتیک) ----- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .stat-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: center;
+        }
+        .stat-item .label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            letter-spacing: 0.3px;
+        }
+        .stat-item .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 4px;
+            line-height: 1.2;
+        }
+        .stat-item.highlight .value {
+            color: #2563eb;
+        }
+
+        /* ----- نوار ابزار (ابزارک‌ها) ----- */
         .toolbar {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 12px;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #e9edf2;
         }
-        .toolbar input {
+        .toolbar .search-box {
+            position: relative;
             flex: 1;
             min-width: 200px;
-            padding: 10px 15px;
-            border: 2px solid #dde4e6;
+        }
+        .toolbar .search-box input {
+            width: 100%;
+            padding: 10px 16px;
+            padding-right: 38px;
+            border: 1px solid #d1d9e6;
             border-radius: 30px;
             font-size: 14px;
-            transition: 0.3s;
+            background: #f8fafc;
+            transition: 0.2s;
+            color: #0f172a;
         }
-        .toolbar input:focus {
-            border-color: #52B788;
+        .toolbar .search-box input:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.2);
+            border-color: #2563eb;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
         }
-        .btn-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 8px 18px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #fff;
-            transition: 0.3s;
+        .toolbar .search-box::before {
+            content: "🔍";
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 14px;
-            white-space: nowrap;
+            opacity: 0.6;
         }
-        .btn:hover {
-            transform: scale(1.03);
-            opacity: 0.9;
+        .toolbar .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        .btn-green { background: #2d6a4f; }
-        .btn-blue { background: #1e6091; }
-        .btn-orange { background: #e76f51; }
-        .btn-red { background: #c1121f; }
-        .btn-purple { background: #6b4c3a; }
 
-        /* جدول */
-        .table-responsive {
+        /* ----- دکمه‌های استاندارد شرکتی ----- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+            color: #1e293b;
+            text-decoration: none;
+            white-space: nowrap;
+            height: 40px;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+        .btn-success {
+            background: #059669;
+            color: #ffffff;
+        }
+        .btn-success:hover {
+            background: #047857;
+            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+        }
+        .btn-danger {
+            background: #dc2626;
+            color: #ffffff;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.25);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #d1d9e6;
+            color: #334155;
+        }
+        .btn-outline:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        /* دکمه‌های داخل جدول */
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-edit {
+            background: #eef2ff;
+            color: #4338ca;
+        }
+        .btn-edit:hover {
+            background: #c7d2fe;
+        }
+        .btn-delete {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .btn-delete:hover {
+            background: #fecaca;
+        }
+
+        /* ----- جدول اطلاعات ----- */
+        .table-wrapper {
             overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #e9edf2;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-        }
-        th, td {
-            border: 1px solid #e2e8f0;
-            padding: 12px 8px;
-            text-align: center;
-            vertical-align: middle;
+            min-width: 680px;
         }
         th {
-            background: #1B4332;
-            color: #fff;
-            font-weight: 600;
-        }
-        tr:nth-child(even) {
-            background: #fafcfa;
-        }
-        tr:hover {
-            background: #e9f5ef;
-        }
-        .empty {
             text-align: center;
-            color: #aaa;
-            padding: 50px;
-            font-size: 1.2rem;
-        }
-        .action-btns {
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn-sm {
-            padding: 4px 12px;
+            padding: 14px 12px;
+            background: #f8fafc;
+            color: #334155;
+            font-weight: 700;
             font-size: 12px;
-            border-radius: 20px;
-            border: none;
-            color: #fff;
-            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e2e8f0;
         }
-        .btn-edit { background: #f4a261; }
-        .btn-del { background: #e63946; }
+        td {
+            padding: 14px 12px;
+            text-align: center;
+            border-bottom: 1px solid #eef2f6;
+            color: #1e293b;
+            vertical-align: middle;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover td {
+            background: #fafcff;
+        }
+        .empty-state {
+            padding: 56px 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 15px;
+        }
+        .badge {
+            display: inline-block;
+            background: #e9edf2;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+        }
 
+        /* ----- ریسپانسیو موبایل ----- */
+        @media (max-width: 640px) {
+            body { padding: 12px; }
+            .main-card { padding: 16px; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .dashboard-header h1 { font-size: 20px; }
+        }
+
+        /* ----- حالت چاپ ----- */
         @media print {
-            .toolbar, .no-print { display: none; }
-            .container { box-shadow: none; }
-            body { background: #fff; }
+            body { background: #fff; padding: 10px; }
+            .toolbar, .no-print { display: none !important; }
+            .main-card { box-shadow: none; border: 1px solid #ddd; }
+            .stat-item { border: 1px solid #ccc; background: #f9f9f9; }
         }
     </style>
 </head>
 <body>
+    <div class="container">
 
-<div class="container" id="mainContainer">
-    <h2>📋 مدیریت رزروهای چایباغ</h2>
+        <!-- هدر -->
+        <div class="dashboard-header">
+            <h1>مدیریت رزروها</h1>
+            <p>داشبورد اختصاصی ادمین · مشاهده، جستجو و مدیریت درخواست‌ها</p>
+        </div>
 
-    <!-- باکس آمار -->
-    <div class="stats" id="stats">
-        <div class="stat-box">📊 مجموع رزروها: <span id="totalCount">0</span></div>
-        <div class="stat-box">📅 رزروهای امروز: <span id="todayCount">0</span></div>
-    </div>
+        <!-- کارت اصلی -->
+        <div class="main-card">
 
-    <!-- نوار ابزار -->
-    <div class="toolbar no-print">
-        <input type="text" id="searchInput" placeholder="🔍 جستجوی نام یا تلفن..." oninput="filterTable()">
-        <div class="btn-group">
-            <button class="btn btn-blue" onclick="exportCSV()">📥 خروجی CSV</button>
-            <button class="btn btn-purple" onclick="window.print()">🖨️ چاپ</button>
-            <button class="btn btn-red" onclick="clearAll()">🗑️ پاک کردن همه</button>
+            <!-- آمار -->
+            <div class="stats-grid">
+                <div class="stat-item highlight">
+                    <div class="label">مجموع رزروها</div>
+                    <div class="value" id="totalCount">۰</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">رزروهای امروز</div>
+                    <div class="value" id="todayCount">۰</div>
+                </div>
+            </div>
+
+            <!-- نوار ابزار -->
+            <div class="toolbar no-print">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="جستجو بر اساس نام یا تلفن..." oninput="filterTable()">
+                </div>
+                <div class="actions">
+                    <button class="btn btn-success" onclick="exportCSV()">خروجی CSV</button>
+                    <button class="btn btn-outline" onclick="window.print()">چاپ</button>
+                    <button class="btn btn-danger" onclick="clearAll()">حذف همه</button>
+                </div>
+            </div>
+
+            <!-- لیست رزروها -->
+            <div id="reservationsList">
+                <div class="empty-state">در حال بارگذاری اطلاعات...</div>
+            </div>
+
         </div>
     </div>
 
-    <!-- لیست رزروها -->
-    <div id="reservationsList">
-        <p class="empty">در حال بارگذاری...</p>
-    </div>
-</div>
+    <script>
+        // ================================================================
+        // 1. بارگذاری و رندر جدول
+        // ================================================================
+        function loadReservations() {
+            const container = document.getElementById('reservationsList');
+            let data = JSON.parse(localStorage.getItem('reservations')) || [];
 
-<script>
-    // ============================
-    // 1. تابع اصلی بارگذاری و رندر جدول
-    // ============================
-    function loadReservations() {
-        const list = document.getElementById('reservationsList');
-        let data = JSON.parse(localStorage.getItem('reservations')) || [];
-
-        // --- اضافه کردن تاریخ ثبت به رزروهای قدیمی (برای اطمینان) ---
-        let changed = false;
-        data = data.map(item => {
-            if (!item.createdAt) {
-                item.createdAt = new Date().toISOString();
-                changed = true;
-            }
-            return item;
-        });
-        if (changed) {
-            localStorage.setItem('reservations', JSON.stringify(data));
-        }
-
-        // --- بروزرسانی آمار ---
-        updateStats(data);
-
-        // --- اگر داده‌ای وجود نداشت ---
-        if (data.length === 0) {
-            list.innerHTML = '<p class="empty">🎯 هیچ رزروی ثبت نشده است.</p>';
-            return;
-        }
-
-        // --- ساخت جدول ---
-        let html = `<div class="table-responsive"><table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>نام</th>
-                    <th>تلفن</th>
-                    <th>تاریخ ورود</th>
-                    <th>تاریخ خروج</th>
-                    <th>تعداد مهمان</th>
-                    <th>تاریخ ثبت</th>
-                    <th>عملیات</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">`;
-
-        data.forEach((item, index) => {
-            // فرمت تاریخ ثبت به شمسی
-            let registerDate = '-';
-            if (item.createdAt) {
-                const d = new Date(item.createdAt);
-                registerDate = d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
-            }
-
-            html += `<tr data-index="${index}">
-                <td>${index + 1}</td>
-                <td class="col-name">${item.name || '-'}</td>
-                <td class="col-phone">${item.phone || '-'}</td>
-                <td>${item.checkin || '-'}</td>
-                <td>${item.checkout || '-'}</td>
-                <td>${item.guests || '-'}</td>
-                <td>${registerDate}</td>
-                <td>
-                    <div class="action-btns">
-                        <button class="btn-sm btn-edit" onclick="editReservation(${index})">✏️</button>
-                        <button class="btn-sm btn-del" onclick="deleteReservation(${index})">🗑️</button>
-                    </div>
-                </td>
-            </tr>`;
-        });
-
-        html += `</tbody></table></div>`;
-        list.innerHTML = html;
-    }
-
-    // ============================
-    // 2. بروزرسانی آمار
-    // ============================
-    function updateStats(data) {
-        document.getElementById('totalCount').innerText = data.length;
-
-        // محاسبه رزروهای امروز (بر اساس تاریخ ورود)
-        const today = new Date().toLocaleDateString('fa-IR');
-        let todayReserves = 0;
-        data.forEach(item => {
-            if (item.checkin) {
-                // تاریخ ورود را به فرمت عددی قابل مقایسه تبدیل می‌کنیم
-                if (item.checkin === today) {
-                    todayReserves++;
+            // افزودن تاریخ ثبت به آیتم‌های قدیمی (برای سازگاری)
+            let changed = false;
+            data = data.map(item => {
+                if (!item.createdAt) {
+                    item.createdAt = new Date().toISOString();
+                    changed = true;
                 }
+                return item;
+            });
+            if (changed) {
+                localStorage.setItem('reservations', JSON.stringify(data));
             }
-        });
-        document.getElementById('todayCount').innerText = todayReserves;
-    }
 
-    // ============================
-    // 3. جستجو / فیلتر
-    // ============================
-    function filterTable() {
-        const input = document.getElementById('searchInput');
-        const filter = input.value.toLowerCase().trim();
-        const rows = document.querySelectorAll('#tableBody tr');
-        if (!rows.length) return;
+            // بروزرسانی آمار
+            updateStats(data);
 
-        rows.forEach(row => {
-            const name = row.querySelector('.col-name')?.innerText?.toLowerCase() || '';
-            const phone = row.querySelector('.col-phone')?.innerText?.toLowerCase() || '';
-            if (name.includes(filter) || phone.includes(filter)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
+            if (data.length === 0) {
+                container.innerHTML = '<div class="empty-state">هیچ رزروی ثبت نشده است.</div>';
+                return;
             }
-        });
-    }
 
-    // ============================
-    // 4. ویرایش رزرو
-    // ============================
-    function editReservation(index) {
-        let data = JSON.parse(localStorage.getItem('reservations')) || [];
-        if (index < 0 || index >= data.length) {
-            alert('رزرو مورد نظر یافت نشد!');
-            return;
-        }
-        const item = data[index];
+            let html = `<div class="table-wrapper"><table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام</th>
+                        <th>تلفن</th>
+                        <th>تاریخ ورود</th>
+                        <th>تاریخ خروج</th>
+                        <th>تعداد مهمان</th>
+                        <th>تاریخ ثبت</th>
+                        <th class="no-print">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">`;
 
-        // گرفتن اطلاعات جدید از طریق پنجره‌های گفتگو
-        const newName = prompt('نام جدید:', item.name || '');
-        if (newName === null) return; // انصراف
-        const newPhone = prompt('تلفن جدید:', item.phone || '');
-        if (newPhone === null) return;
-        const newCheckin = prompt('تاریخ ورود جدید (مثلا 1403/02/15):', item.checkin || '');
-        if (newCheckin === null) return;
-        const newCheckout = prompt('تاریخ خروج جدید:', item.checkout || '');
-        if (newCheckout === null) return;
-        const newGuests = prompt('تعداد مهمان جدید:', item.guests || '');
-        if (newGuests === null) return;
+            data.forEach((item, index) => {
+                let registerDate = '-';
+                if (item.createdAt) {
+                    const d = new Date(item.createdAt);
+                    registerDate = d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
+                }
 
-        // بروزرسانی آبجکت
-        data[index] = {
-            ...item,
-            name: newName.trim() || item.name,
-            phone: newPhone.trim() || item.phone,
-            checkin: newCheckin.trim() || item.checkin,
-            checkout: newCheckout.trim() || item.checkout,
-            guests: newGuests.trim() || item.guests,
-            // createdAt را حفظ می‌کنیم
-        };
+                html += `<tr data-index="${index}">
+                    <td>${index + 1}</td>
+                    <td class="col-name">${item.name || '-'}</td>
+                    <td class="col-phone">${item.phone || '-'}</td>
+                    <td>${item.checkin || '-'}</td>
+                    <td>${item.checkout || '-'}</td>
+                    <td><span class="badge">${item.guests || '۰'}</span></td>
+                    <td>${registerDate}</td>
+                    <td class="no-print">
+                        <button class="btn-icon btn-edit" onclick="editReservation(${index})" title="ویرایش">✎</button>
+                        <button class="btn-icon btn-delete" onclick="deleteReservation(${index})" title="حذف">✕</button>
+                    </td>
+                </tr>`;
+            });
 
-        localStorage.setItem('reservations', JSON.stringify(data));
-        loadReservations(); // ریلود جدول
-        // فیلتر جاری را دوباره اعمال کن
-        filterTable();
-    }
-
-    // ============================
-    // 5. حذف تکی
-    // ============================
-    function deleteReservation(index) {
-        if (!confirm('آیا از حذف این رزرو مطمئن هستید؟')) return;
-        let data = JSON.parse(localStorage.getItem('reservations')) || [];
-        data.splice(index, 1);
-        localStorage.setItem('reservations', JSON.stringify(data));
-        loadReservations();
-        filterTable(); // اعمال مجدد فیلتر
-    }
-
-    // ============================
-    // 6. پاک کردن همه
-    // ============================
-    function clearAll() {
-        if (!confirm('⚠️ همه رزروها به طور کامل حذف شوند؟')) return;
-        localStorage.removeItem('reservations');
-        loadReservations();
-    }
-
-    // ============================
-    // 7. خروجی CSV (اکسل)
-    // ============================
-    function exportCSV() {
-        let data = JSON.parse(localStorage.getItem('reservations')) || [];
-        if (data.length === 0) {
-            alert('هیچ داده‌ای برای خروجی وجود ندارد.');
-            return;
+            html += `</tbody></table></div>`;
+            container.innerHTML = html;
         }
 
-        // سطر هدر
-        let csv = '\uFEFF'; // BOM برای پشتیبانی از فارسی در اکسل
-        csv += 'نام,تلفن,تاریخ ورود,تاریخ خروج,تعداد مهمان,تاریخ ثبت\n';
+        // ================================================================
+        // 2. بروزرسانی آمار
+        // ================================================================
+        function updateStats(data) {
+            document.getElementById('totalCount').innerText = data.length;
 
-        data.forEach(item => {
-            let registerDate = '-';
-            if (item.createdAt) {
-                registerDate = new Date(item.createdAt).toLocaleDateString('fa-IR');
-            }
-            csv += `${item.name || ''},${item.phone || ''},${item.checkin || ''},${item.checkout || ''},${item.guests || ''},${registerDate}\n`;
-        });
+            const today = new Date().toLocaleDateString('fa-IR');
+            let todayReserves = data.filter(item => item.checkin === today).length;
+            document.getElementById('todayCount').innerText = todayReserves;
+        }
 
-        // دانلود فایل
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `لیست_رزروها_${new Date().toLocaleDateString('fa-IR')}.csv`;
-        link.click();
-        URL.revokeObjectURL(link.href);
-    }
+        // ================================================================
+        // 3. فیلتر جستجو
+        // ================================================================
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                const name = row.querySelector('.col-name')?.innerText?.toLowerCase() || '';
+                const phone = row.querySelector('.col-phone')?.innerText?.toLowerCase() || '';
+                row.style.display = (name.includes(filter) || phone.includes(filter)) ? '' : 'none';
+            });
+        }
 
-    // ============================
-    // بارگذاری اولیه
-    // ============================
-    window.onload = loadReservations;
-</script>
+        // ================================================================
+        // 4. ویرایش رزرو
+        // ================================================================
+        function editReservation(index) {
+            let data = JSON.parse(localStorage.getItem('reservations')) || [];
+            if (!data[index]) return alert('رزرو مورد نظر یافت نشد.');
+            const item = data[index];
 
+            const newName = prompt('ویرایش نام:', item.name || '');
+            if (newName === null) return;
+            const newPhone = prompt('ویرایش تلفن:', item.phone || '');
+            if (newPhone === null) return;
+            const newCheckin = prompt('تاریخ ورود (مثال: ۱۴۰۳/۰۲/۱۵):', item.checkin || '');
+            if (newCheckin === null) return;
+            const newCheckout = prompt('تاریخ خروج:', item.checkout || '');
+            if (newCheckout === null) return;
+            const newGuests = prompt('تعداد مهمان:', item.guests || '');
+            if (newGuests === null) return;
+
+            data[index] = {
+                ...item,
+                name: newName.trim() || item.name,
+                phone: newPhone.trim() || item.phone,
+                checkin: newCheckin.trim() || item.checkin,
+                checkout: newCheckout.trim() || item.checkout,
+                guests: newGuests.trim() || item.guests,
+            };
+            localStorage.setItem('reservations', JSON.stringify(data));
+            loadReservations();
+            filterTable();
+        }
+
+        // ================================================================
+        // 5. حذف تکی
+        // ================================================================
+        function deleteReservation(index) {
+            if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
+            let data = JSON.parse(localStorage.getItem('reservations')) || [];
+            data.splice(index, 1);
+            localStorage.setItem('reservations', JSON.stringify(data));
+            loadReservations();
+            filterTable();
+        }
+
+        // ================================================================
+        // 6. حذف همه
+        // ================================================================
+        function clearAll() {
+            if (!confirm('همه رزروها به طور دائمی حذف شوند؟')) return;
+            localStorage.removeItem('reservations');
+            loadReservations();
+        }
+
+        // ================================================================
+        // 7. خروجی CSV (سازگار با اکسل فارسی)
+        // ================================================================
+        function exportCSV() {
+            let data = JSON.parse(localStorage.getItem('reservations')) || [];
+            if (!data.length) return alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+
+            let csv = '\uFEFF'; // BOM برای نمایش صحیح فارسی
+            csv += 'نام,تلفن,تاریخ ورود,تاریخ خروج,تعداد مهمان,تاریخ ثبت\n';
+            data.forEach(item => {
+                const regDate = item.createdAt ? new Date(item.createdAt).toLocaleDateString('fa-IR') : '-';
+                csv += `${item.name || ''},${item.phone || ''},${item.checkin || ''},${item.checkout || ''},${item.guests || ''},${regDate}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `گزارش_رزروها_${new Date().toLocaleDateString('fa-IR')}.csv`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
+        // ================================================================
+        // بارگذاری اولیه
+        // ================================================================
+        window.onload = loadReservations;
+    </script>
 </body>
 </html>
