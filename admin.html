@@ -249,17 +249,21 @@
 
     <script>
         // ================================================================
-        // 1. تبدیل تاریخ میلادی به شمسی
+        // ۱. تبدیل تاریخ میلادی به شمسی با ساعت و دقیقه (دقیق)
         // ================================================================
-        function toPersianDate(dateStr) {
+        function toPersianDateTime(dateStr) {
             if (!dateStr) return '-';
             try {
                 const d = new Date(dateStr);
                 if (isNaN(d.getTime())) return dateStr;
+                // ★★★ تنظیم منطقه زمانی تهران برای تبدیل دقیق ★★★
                 return d.toLocaleDateString('fa-IR', {
                     year: 'numeric',
                     month: 'long',
-                    day: 'numeric'
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Asia/Tehran'   // ← این خط را اضافه کنید
                 });
             } catch {
                 return dateStr;
@@ -267,42 +271,33 @@
         }
 
         // ================================================================
-        // 2. اصلاح اجباری داده‌ها (اضافه کردن createdAt به همه)
+        // ۲. اصلاح اجباری داده‌ها (اضافه کردن createdAt به همه)
         // ================================================================
         function fixReservationsData() {
             let data = JSON.parse(localStorage.getItem('reservations')) || [];
             let changed = false;
 
-            // حلقه روی همه رزروها
             for (let i = 0; i < data.length; i++) {
                 if (!data[i].createdAt) {
-                    // اگر createdAt وجود نداشت، تاریخ امروز را اضافه کن
                     data[i].createdAt = new Date().toISOString();
                     changed = true;
                 }
             }
 
-            // اگر تغییری ایجاد شده بود، دوباره ذخیره کن
             if (changed) {
                 localStorage.setItem('reservations', JSON.stringify(data));
                 console.log('✅ تاریخ ثبت به همه رزروها اضافه شد.');
-            } else {
-                console.log('ℹ️ همه رزروها قبلاً تاریخ ثبت داشتند.');
             }
 
             return data;
         }
 
         // ================================================================
-        // 3. بارگذاری و نمایش رزروها
+        // ۳. بارگذاری و نمایش رزروها
         // ================================================================
         function loadReservations() {
             const container = document.getElementById('reservationsList');
-
-            // ★★★ اول داده‌ها را اصلاح کن ★★★
             let data = fixReservationsData();
-
-            // بروزرسانی آمار
             updateStats(data);
 
             if (data.length === 0) {
@@ -331,7 +326,7 @@
             data.forEach((item, index) => {
                 const checkin = item.checkin || '-';
                 const checkout = item.checkout || '-';
-                const createdAtPersian = toPersianDate(item.createdAt);
+                const createdAtPersian = toPersianDateTime(item.createdAt);
 
                 html += `
                     <tr>
@@ -359,7 +354,7 @@
         }
 
         // ================================================================
-        // 4. بروزرسانی آمار
+        // ۴. بروزرسانی آمار
         // ================================================================
         function updateStats(data) {
             document.getElementById('totalCount').innerText = data.length;
@@ -375,7 +370,7 @@
         }
 
         // ================================================================
-        // 5. حذف یک رزرو
+        // ۵. حذف یک رزرو
         // ================================================================
         function deleteReservation(index) {
             if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
@@ -386,7 +381,7 @@
         }
 
         // ================================================================
-        // 6. حذف همه
+        // ۶. حذف همه
         // ================================================================
         function clearAll() {
             if (!confirm('⚠️ همه رزروها به طور دائمی حذف شوند؟')) return;
@@ -395,7 +390,7 @@
         }
 
         // ================================================================
-        // 7. بارگذاری اولیه
+        // ۷. بارگذاری اولیه
         // ================================================================
         window.onload = loadReservations;
     </script>
