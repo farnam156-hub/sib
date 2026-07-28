@@ -3,228 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل مدیریت | رزروها</title>
+    <title>پنل مدیریت رزروها</title>
     <style>
-        /* ----- تنظیمات پایه ----- */
+        /* ---------- ریست و فونت ---------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: 'Vazirmatn', 'Segoe UI', system-ui, sans-serif;
-            background: #f1f5f9;
-            padding: 24px;
-            color: #0f172a;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f4f8;
+            padding: 20px;
+            color: #1e293b;
         }
 
-        /* ----- هدر و کارت اصلی ----- */
-        .dashboard-header {
-            margin-bottom: 28px;
+        /* ---------- کانتینر اصلی ---------- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
-        .dashboard-header h1 {
-            font-size: 24px;
+
+        /* ---------- هدر ---------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .header h1 {
+            font-size: 26px;
             font-weight: 700;
             color: #0f172a;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
-        .dashboard-header p {
+        .header .sub {
             color: #64748b;
             font-size: 14px;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
-        .main-card {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-            padding: 28px 30px;
-            transition: all 0.2s ease;
-        }
-
-        /* ----- کارت‌های آمار (استاتیک) ----- */
-        .stats-grid {
+        /* ---------- کارت‌های آمار ---------- */
+        .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 16px;
-            margin-bottom: 28px;
+            margin: 24px 0 28px 0;
         }
-        .stat-item {
+        .stat-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px 20px;
+            border-radius: 14px;
+            padding: 16px 18px;
             text-align: center;
         }
-        .stat-item .label {
+        .stat-card .label {
             font-size: 13px;
             font-weight: 500;
             color: #64748b;
-            letter-spacing: 0.3px;
         }
-        .stat-item .value {
-            font-size: 28px;
+        .stat-card .number {
+            font-size: 30px;
             font-weight: 700;
-            color: #1e293b;
+            color: #0f172a;
             margin-top: 4px;
-            line-height: 1.2;
         }
-        .stat-item.highlight .value {
+        .stat-card.highlight .number {
             color: #2563eb;
         }
 
-        /* ----- نوار ابزار (ابزارک‌ها) ----- */
+        /* ---------- نوار ابزار (چاپ و حذف همه) ---------- */
         .toolbar {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
+            justify-content: flex-end;
+            gap: 12px;
             margin-bottom: 24px;
             padding-bottom: 18px;
             border-bottom: 1px solid #e9edf2;
         }
-        .toolbar .search-box {
-            position: relative;
-            flex: 1;
-            min-width: 200px;
-        }
-        .toolbar .search-box input {
-            width: 100%;
-            padding: 10px 16px;
-            padding-right: 38px;
-            border: 1px solid #d1d9e6;
-            border-radius: 30px;
-            font-size: 14px;
-            background: #f8fafc;
-            transition: 0.2s;
-            color: #0f172a;
-        }
-        .toolbar .search-box input:focus {
-            outline: none;
-            border-color: #2563eb;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
-        }
-        .toolbar .search-box::before {
-            content: "🔍";
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            opacity: 0.6;
-        }
-        .toolbar .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        /* ----- دکمه‌های استاندارد شرکتی ----- */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 18px;
+            padding: 8px 22px;
+            border: none;
             border-radius: 30px;
             font-weight: 600;
-            font-size: 13px;
-            border: none;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            background: transparent;
-            color: #1e293b;
-            text-decoration: none;
-            white-space: nowrap;
-            height: 40px;
+            transition: 0.2s;
+            height: 42px;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .btn-primary {
-            background: #2563eb;
-            color: #ffffff;
+        .btn-print {
+            background: #1e293b;
         }
-        .btn-primary:hover {
-            background: #1d4ed8;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
-        }
-        .btn-success {
-            background: #059669;
-            color: #ffffff;
-        }
-        .btn-success:hover {
-            background: #047857;
-            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+        .btn-print:hover {
+            background: #0f172a;
+            transform: scale(1.02);
         }
         .btn-danger {
             background: #dc2626;
-            color: #ffffff;
         }
         .btn-danger:hover {
             background: #b91c1c;
-            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.25);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #d1d9e6;
-            color: #334155;
-        }
-        .btn-outline:hover {
-            background: #f1f5f9;
-            border-color: #94a3b8;
-        }
-        /* دکمه‌های داخل جدول */
-        .btn-icon {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-        .btn-edit {
-            background: #eef2ff;
-            color: #4338ca;
-        }
-        .btn-edit:hover {
-            background: #c7d2fe;
-        }
-        .btn-delete {
-            background: #fef2f2;
-            color: #dc2626;
-        }
-        .btn-delete:hover {
-            background: #fecaca;
+            transform: scale(1.02);
         }
 
-        /* ----- جدول اطلاعات ----- */
-        .table-wrapper {
+        /* ---------- دکمه حذف تکی ---------- */
+        .btn-sm {
+            padding: 4px 16px;
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #fff;
+            background: #ef4444;
+            height: 30px;
+            transition: 0.15s;
+        }
+        .btn-sm:hover {
+            background: #dc2626;
+        }
+
+        /* ---------- جدول ---------- */
+        .table-wrap {
             overflow-x: auto;
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid #e9edf2;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            min-width: 680px;
+            min-width: 620px;
         }
         th {
-            text-align: center;
-            padding: 14px 12px;
             background: #f8fafc;
             color: #334155;
             font-weight: 700;
             font-size: 12px;
-            letter-spacing: 0.5px;
             text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 14px 12px;
             border-bottom: 2px solid #e2e8f0;
+            text-align: center;
         }
         td {
             padding: 14px 12px;
@@ -239,249 +170,233 @@
         tr:hover td {
             background: #fafcff;
         }
-        .empty-state {
-            padding: 56px 20px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 15px;
-        }
+
         .badge {
-            display: inline-block;
             background: #e9edf2;
-            padding: 2px 10px;
+            padding: 2px 14px;
             border-radius: 30px;
             font-size: 12px;
             font-weight: 600;
             color: #475569;
         }
 
-        /* ----- ریسپانسیو موبایل ----- */
-        @media (max-width: 640px) {
-            body { padding: 12px; }
-            .main-card { padding: 16px; }
-            .toolbar { flex-direction: column; align-items: stretch; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .dashboard-header h1 { font-size: 20px; }
+        .empty {
+            padding: 60px 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 15px;
         }
 
-        /* ----- حالت چاپ ----- */
+        /* ---------- حالت چاپ ---------- */
         @media print {
-            body { background: #fff; padding: 10px; }
-            .toolbar, .no-print { display: none !important; }
-            .main-card { box-shadow: none; border: 1px solid #ddd; }
-            .stat-item { border: 1px solid #ccc; background: #f9f9f9; }
+            body {
+                background: #fff;
+                padding: 10px;
+            }
+            .toolbar {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                padding: 16px;
+            }
+            .stat-card {
+                border: 1px solid #ccc;
+                background: #f9f9f9;
+            }
+            .btn-sm {
+                display: none;
+            }
+            th {
+                background: #eee !important;
+            }
+        }
+
+        /* ---------- موبایل ---------- */
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 18px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .toolbar {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+
     <div class="container">
 
         <!-- هدر -->
-        <div class="dashboard-header">
-            <h1>مدیریت رزروها</h1>
-            <p>داشبورد اختصاصی ادمین · مشاهده، جستجو و مدیریت درخواست‌ها</p>
+        <div class="header">
+            <div>
+                <h1>📋 مدیریت رزروها</h1>
+                <div class="sub">پنل ادمین · مشاهده و حذف رزروها</div>
+            </div>
         </div>
 
-        <!-- کارت اصلی -->
-        <div class="main-card">
-
-            <!-- آمار -->
-            <div class="stats-grid">
-                <div class="stat-item highlight">
-                    <div class="label">مجموع رزروها</div>
-                    <div class="value" id="totalCount">۰</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">رزروهای امروز</div>
-                    <div class="value" id="todayCount">۰</div>
-                </div>
+        <!-- آمار -->
+        <div class="stats">
+            <div class="stat-card highlight">
+                <div class="label">مجموع رزروها</div>
+                <div class="number" id="totalCount">۰</div>
             </div>
-
-            <!-- نوار ابزار -->
-            <div class="toolbar no-print">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="جستجو بر اساس نام یا تلفن..." oninput="filterTable()">
-                </div>
-                
+            <div class="stat-card">
+                <div class="label">📅 رزروهای امروز</div>
+                <div class="number" id="todayCount">۰</div>
             </div>
-
-            <!-- لیست رزروها -->
-            <div id="reservationsList">
-                <div class="empty-state">در حال بارگذاری اطلاعات...</div>
-            </div>
-
         </div>
+
+        <!-- دکمه‌ها -->
+        <div class="toolbar no-print">
+            <button class="btn btn-print" onclick="window.print()">🖨️ چاپ</button>
+            <button class="btn btn-danger" onclick="clearAll()">🗑️ حذف همه</button>
+        </div>
+
+        <!-- لیست رزروها -->
+        <div id="reservationsList">
+            <div class="empty">در حال بارگذاری...</div>
+        </div>
+
     </div>
 
     <script>
         // ================================================================
-        // 1. بارگذاری و رندر جدول
+        // ۱. تابع اصلی: بارگذاری و نمایش رزروها
         // ================================================================
         function loadReservations() {
             const container = document.getElementById('reservationsList');
+
+            // دریافت داده از localStorage
             let data = JSON.parse(localStorage.getItem('reservations')) || [];
 
-            // افزودن تاریخ ثبت به آیتم‌های قدیمی (برای سازگاری)
-            let changed = false;
-            data = data.map(item => {
-                if (!item.createdAt) {
-                    item.createdAt = new Date().toISOString();
-                    changed = true;
-                }
-                return item;
-            });
-            if (changed) {
-                localStorage.setItem('reservations', JSON.stringify(data));
-            }
-
-            // بروزرسانی آمار
-            updateStats(data);
-
+            // اگر داده‌ای وجود نداشت
             if (data.length === 0) {
-                container.innerHTML = '<div class="empty-state">هیچ رزروی ثبت نشده است.</div>';
+                container.innerHTML = '<div class="empty">هیچ رزروی ثبت نشده است.</div>';
+                updateStats(data);
                 return;
             }
 
-            let html = `<div class="table-wrapper"><table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام</th>
-                        <th>تلفن</th>
-                        <th>تاریخ ورود</th>
-                        <th>تاریخ خروج</th>
-                        <th>تعداد مهمان</th>
-                        <th>تاریخ ثبت</th>
-                        <th class="no-print">عملیات</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">`;
+            // ساخت جدول
+            let html = `
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>نام</th>
+                                <th>تلفن</th>
+                                <th>تاریخ ورود</th>
+                                <th>تاریخ خروج</th>
+                                <th>تعداد مهمان</th>
+                                <th>تاریخ ثبت</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
 
             data.forEach((item, index) => {
+                // تاریخ ثبت را به شمسی نمایش بده
                 let registerDate = '-';
                 if (item.createdAt) {
-                    const d = new Date(item.createdAt);
-                    registerDate = d.toLocaleDateString('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' });
+                    try {
+                        const d = new Date(item.createdAt);
+                        if (!isNaN(d.getTime())) {
+                            registerDate = d.toLocaleDateString('fa-IR', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            });
+                        }
+                    } catch { /* ignore */ }
                 }
 
-                html += `<tr data-index="${index}">
-                    <td>${index + 1}</td>
-                    <td class="col-name">${item.name || '-'}</td>
-                    <td class="col-phone">${item.phone || '-'}</td>
-                    <td>${item.checkin || '-'}</td>
-                    <td>${item.checkout || '-'}</td>
-                    <td><span class="badge">${item.guests || '۰'}</span></td>
-                    <td>${registerDate}</td>
-                    <td class="no-print">
-                        <button class="btn-icon btn-edit" onclick="editReservation(${index})" title="ویرایش">✎</button>
-                        <button class="btn-icon btn-delete" onclick="deleteReservation(${index})" title="حذف">✕</button>
-                    </td>
-                </tr>`;
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.name || '-'}</td>
+                        <td>${item.phone || '-'}</td>
+                        <td>${item.checkin || '-'}</td>
+                        <td>${item.checkout || '-'}</td>
+                        <td><span class="badge">${item.guests || '۰'}</span></td>
+                        <td>${registerDate}</td>
+                        <td>
+                            <button class="btn-sm" onclick="deleteReservation(${index})">حذف</button>
+                        </td>
+                    </tr>
+                `;
             });
 
-            html += `</tbody></table></div>`;
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
             container.innerHTML = html;
+
+            // بروزرسانی آمار
+            updateStats(data);
         }
 
         // ================================================================
-        // 2. بروزرسانی آمار
+        // ۲. تابع آمار (با مقایسه‌ی دقیق تاریخ میلادی)
         // ================================================================
         function updateStats(data) {
+            // تعداد کل
             document.getElementById('totalCount').innerText = data.length;
 
-            const today = new Date().toLocaleDateString('fa-IR');
-            let todayReserves = data.filter(item => item.checkin === today).length;
+            // ---- محاسبه رزروهای امروز ----
+            const today = new Date();
+            // تاریخ امروز به فرمت میلادی YYYY-MM-DD
+            const todayStr =
+                today.getFullYear() + '-' +
+                String(today.getMonth() + 1).padStart(2, '0') + '-' +
+                String(today.getDate()).padStart(2, '0');
+
+            // فیلتر کردن رزروهایی که تاریخ ورودشان با امروز برابر است
+            const todayReserves = data.filter(item => item.checkin === todayStr).length;
+
             document.getElementById('todayCount').innerText = todayReserves;
         }
 
         // ================================================================
-        // 3. فیلتر جستجو
-        // ================================================================
-        function filterTable() {
-            const filter = document.getElementById('searchInput').value.trim().toLowerCase();
-            const rows = document.querySelectorAll('#tableBody tr');
-            rows.forEach(row => {
-                const name = row.querySelector('.col-name')?.innerText?.toLowerCase() || '';
-                const phone = row.querySelector('.col-phone')?.innerText?.toLowerCase() || '';
-                row.style.display = (name.includes(filter) || phone.includes(filter)) ? '' : 'none';
-            });
-        }
-
-        // ================================================================
-        // 4. ویرایش رزرو
-        // ================================================================
-        function editReservation(index) {
-            let data = JSON.parse(localStorage.getItem('reservations')) || [];
-            if (!data[index]) return alert('رزرو مورد نظر یافت نشد.');
-            const item = data[index];
-
-            const newName = prompt('ویرایش نام:', item.name || '');
-            if (newName === null) return;
-            const newPhone = prompt('ویرایش تلفن:', item.phone || '');
-            if (newPhone === null) return;
-            const newCheckin = prompt('تاریخ ورود (مثال: ۱۴۰۳/۰۲/۱۵):', item.checkin || '');
-            if (newCheckin === null) return;
-            const newCheckout = prompt('تاریخ خروج:', item.checkout || '');
-            if (newCheckout === null) return;
-            const newGuests = prompt('تعداد مهمان:', item.guests || '');
-            if (newGuests === null) return;
-
-            data[index] = {
-                ...item,
-                name: newName.trim() || item.name,
-                phone: newPhone.trim() || item.phone,
-                checkin: newCheckin.trim() || item.checkin,
-                checkout: newCheckout.trim() || item.checkout,
-                guests: newGuests.trim() || item.guests,
-            };
-            localStorage.setItem('reservations', JSON.stringify(data));
-            loadReservations();
-            filterTable();
-        }
-
-        // ================================================================
-        // 5. حذف تکی
+        // ۳. حذف یک رزرو
         // ================================================================
         function deleteReservation(index) {
             if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
+
             let data = JSON.parse(localStorage.getItem('reservations')) || [];
             data.splice(index, 1);
             localStorage.setItem('reservations', JSON.stringify(data));
-            loadReservations();
-            filterTable();
+            loadReservations(); // ریلود لیست
         }
 
         // ================================================================
-        // 6. حذف همه
+        // ۴. حذف همه رزروها
         // ================================================================
         function clearAll() {
-            if (!confirm('همه رزروها به طور دائمی حذف شوند؟')) return;
+            if (!confirm('⚠️ همه رزروها به طور دائمی حذف شوند؟')) return;
             localStorage.removeItem('reservations');
             loadReservations();
         }
 
         // ================================================================
-// تابع کمکی برای تبدیل تاریخ به شمسی (با فرمت استاندارد)
-// ================================================================
-function toPersianDate(dateStr) {
-    if (!dateStr || dateStr.trim() === '') return '';
-    try {
-        const d = new Date(dateStr);
-        if (isNaN(d.getTime())) return dateStr; // اگر تاریخ نامعتبر بود، خودش را برگردان
-        return d.toLocaleDateString('fa-IR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }).replace(/\//g, '/'); // جایگزین کردن جداکننده به اسلش
-    } catch {
-        return dateStr;
-    }
-}
-
-        // ================================================================
-        // بارگذاری اولیه
+        // ۵. بارگذاری اولیه
         // ================================================================
         window.onload = loadReservations;
     </script>
+
 </body>
 </html>
