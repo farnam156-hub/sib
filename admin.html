@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل ادمین | رزروها</title>
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background: #1B4332; color: #fff; }
+        .empty { text-align: center; color: #999; padding: 40px; }
+        .btn { background: #52B788; color: #fff; padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; }
+        .btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; color:#1B4332;">📋 لیست رزروها</h2>
+        <div id="reservationsList">
+            <p class="empty">در حال بارگذاری...</p>
+        </div>
+        <button class="btn" onclick="clearAll()">🗑️ پاک کردن همه</button>
+    </div>
+
+    <script>
+        function loadReservations() {
+            const list = document.getElementById('reservationsList');
+            const data = JSON.parse(localStorage.getItem('reservations')) || [];
+
+            if (data.length === 0) {
+                list.innerHTML = '<p class="empty">هیچ رزروی ثبت نشده است.</p>';
+                return;
+            }
+
+            let html = `<table>
+                <tr>
+                    <th>#</th>
+                    <th>نام</th>
+                    <th>تلفن</th>
+                    <th>تاریخ ورود</th>
+                    <th>تاریخ خروج</th>
+                    <th>تعداد مهمان</th>
+                    <th>عملیات</th>
+                </tr>`;
+
+            data.forEach((item, index) => {
+                html += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${item.name || '-'}</td>
+                    <td>${item.phone || '-'}</td>
+                    <td>${item.checkin || '-'}</td>
+                    <td>${item.checkout || '-'}</td>
+                    <td>${item.guests || '-'}</td>
+                    <td><button class="btn" style="background:#e74c3c;" onclick="deleteReservation(${index})">حذف</button></td>
+                </tr>`;
+            });
+
+            html += '</table>';
+            list.innerHTML = html;
+        }
+
+        function deleteReservation(index) {
+            if (confirm('آیا از حذف این رزرو مطمئن هستید؟')) {
+                let data = JSON.parse(localStorage.getItem('reservations')) || [];
+                data.splice(index, 1);
+                localStorage.setItem('reservations', JSON.stringify(data));
+                loadReservations();
+            }
+        }
+
+        function clearAll() {
+            if (confirm('همه رزروها حذف شوند؟')) {
+                localStorage.removeItem('reservations');
+                loadReservations();
+            }
+        }
+
+        // بارگذاری اولیه
+        loadReservations();
+    </script>
+</body>
+</html>
