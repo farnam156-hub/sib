@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پنل مدیریت رزروها</title>
     <style>
-        /* ----- تنظیمات پایه ----- */
         * {
             margin: 0;
             padding: 0;
@@ -17,8 +16,6 @@
             padding: 20px;
             color: #0f172a;
         }
-
-        /* ----- کانتینر اصلی ----- */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -27,8 +24,6 @@
             padding: 28px 30px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
         }
-
-        /* ----- هدر ----- */
         .header {
             display: flex;
             justify-content: space-between;
@@ -47,8 +42,6 @@
             font-size: 14px;
             margin-top: 2px;
         }
-
-        /* ----- کارت‌های آمار ----- */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -76,8 +69,6 @@
         .stat-card.highlight .number {
             color: #2563eb;
         }
-
-        /* ----- نوار ابزار ----- */
         .toolbar {
             display: flex;
             flex-wrap: wrap;
@@ -115,8 +106,6 @@
             background: #b91c1c;
             transform: scale(1.02);
         }
-
-        /* ----- دکمه حذف تکی ----- */
         .btn-sm {
             padding: 4px 14px;
             border: none;
@@ -132,8 +121,6 @@
         .btn-sm:hover {
             background: #dc2626;
         }
-
-        /* ----- جدول ----- */
         .table-wrap {
             overflow-x: auto;
             border-radius: 12px;
@@ -169,7 +156,6 @@
         tr:hover td {
             background: #fafcff;
         }
-
         .badge {
             background: #e9edf2;
             padding: 2px 12px;
@@ -178,15 +164,12 @@
             font-weight: 600;
             color: #475569;
         }
-
         .empty {
             padding: 50px 20px;
             text-align: center;
             color: #94a3b8;
             font-size: 15px;
         }
-
-        /* ----- حالت چاپ ----- */
         @media print {
             body {
                 background: #fff;
@@ -211,8 +194,6 @@
                 background: #eee !important;
             }
         }
-
-        /* ----- موبایل ----- */
         @media (max-width: 640px) {
             body {
                 padding: 12px;
@@ -237,7 +218,6 @@
 
     <div class="container">
 
-        <!-- هدر -->
         <div class="header">
             <div>
                 <h1>📋 مدیریت رزروها</h1>
@@ -245,7 +225,6 @@
             </div>
         </div>
 
-        <!-- آمار -->
         <div class="stats">
             <div class="stat-card highlight">
                 <div class="label">مجموع رزروها</div>
@@ -257,13 +236,11 @@
             </div>
         </div>
 
-        <!-- دکمه‌ها -->
         <div class="toolbar no-print">
             <button class="btn btn-print" onclick="window.print()">🖨️ چاپ</button>
             <button class="btn btn-danger" onclick="clearAll()">🗑️ حذف همه</button>
         </div>
 
-        <!-- لیست رزروها -->
         <div id="reservationsList">
             <div class="empty">در حال بارگذاری...</div>
         </div>
@@ -272,7 +249,7 @@
 
     <script>
         // ================================================================
-        // 1. تبدیل تاریخ میلادی به شمسی (فارسی)
+        // 1. تبدیل تاریخ میلادی به شمسی
         // ================================================================
         function toPersianDate(dateStr) {
             if (!dateStr) return '-';
@@ -290,37 +267,49 @@
         }
 
         // ================================================================
-        // 2. بارگذاری و نمایش رزروها
+        // 2. اصلاح اجباری داده‌ها (اضافه کردن createdAt به همه)
+        // ================================================================
+        function fixReservationsData() {
+            let data = JSON.parse(localStorage.getItem('reservations')) || [];
+            let changed = false;
+
+            // حلقه روی همه رزروها
+            for (let i = 0; i < data.length; i++) {
+                if (!data[i].createdAt) {
+                    // اگر createdAt وجود نداشت، تاریخ امروز را اضافه کن
+                    data[i].createdAt = new Date().toISOString();
+                    changed = true;
+                }
+            }
+
+            // اگر تغییری ایجاد شده بود، دوباره ذخیره کن
+            if (changed) {
+                localStorage.setItem('reservations', JSON.stringify(data));
+                console.log('✅ تاریخ ثبت به همه رزروها اضافه شد.');
+            } else {
+                console.log('ℹ️ همه رزروها قبلاً تاریخ ثبت داشتند.');
+            }
+
+            return data;
+        }
+
+        // ================================================================
+        // 3. بارگذاری و نمایش رزروها
         // ================================================================
         function loadReservations() {
             const container = document.getElementById('reservationsList');
 
-            // دریافت داده از localStorage
-            let data = JSON.parse(localStorage.getItem('reservations')) || [];
-
-            // ★★★ اصلاح خودکار: به رزروهای بدون createdAt، تاریخ امروز را اضافه کن ★★★
-            let changed = false;
-            data = data.map(item => {
-                if (!item.createdAt) {
-                    item.createdAt = new Date().toISOString();
-                    changed = true;
-                }
-                return item;
-            });
-            if (changed) {
-                localStorage.setItem('reservations', JSON.stringify(data));
-            }
+            // ★★★ اول داده‌ها را اصلاح کن ★★★
+            let data = fixReservationsData();
 
             // بروزرسانی آمار
             updateStats(data);
 
-            // اگر رزروی وجود نداشت
             if (data.length === 0) {
                 container.innerHTML = '<div class="empty">هیچ رزروی ثبت نشده است.</div>';
                 return;
             }
 
-            // ساخت جدول
             let html = `
                 <div class="table-wrap">
                     <table>
@@ -340,10 +329,8 @@
             `;
 
             data.forEach((item, index) => {
-                // تاریخ ورود و خروج را همان‌طور که هست نمایش بده
                 const checkin = item.checkin || '-';
                 const checkout = item.checkout || '-';
-                // تاریخ ثبت را به شمسی تبدیل کن
                 const createdAtPersian = toPersianDate(item.createdAt);
 
                 html += `
@@ -372,13 +359,11 @@
         }
 
         // ================================================================
-        // 3. بروزرسانی آمار (مجموع و رزروهای امروز)
+        // 4. بروزرسانی آمار
         // ================================================================
         function updateStats(data) {
-            // مجموع رزروها
             document.getElementById('totalCount').innerText = data.length;
 
-            // محاسبه رزروهای امروز (با فرمت میلادی YYYY-MM-DD)
             const today = new Date();
             const todayStr =
                 today.getFullYear() + '-' +
@@ -390,29 +375,27 @@
         }
 
         // ================================================================
-        // 4. حذف یک رزرو
+        // 5. حذف یک رزرو
         // ================================================================
         function deleteReservation(index) {
             if (!confirm('آیا از حذف این رزرو اطمینان دارید؟')) return;
-
             let data = JSON.parse(localStorage.getItem('reservations')) || [];
             data.splice(index, 1);
             localStorage.setItem('reservations', JSON.stringify(data));
-            loadReservations(); // ریلود لیست
+            loadReservations();
         }
 
         // ================================================================
-        // 5. حذف همه رزروها
+        // 6. حذف همه
         // ================================================================
         function clearAll() {
             if (!confirm('⚠️ همه رزروها به طور دائمی حذف شوند؟')) return;
-
             localStorage.removeItem('reservations');
             loadReservations();
         }
 
         // ================================================================
-        // 6. بارگذاری اولیه
+        // 7. بارگذاری اولیه
         // ================================================================
         window.onload = loadReservations;
     </script>
