@@ -465,57 +465,97 @@
         }
 
         // ================================================================
-// تابع کمکی برای تبدیل هر تاریخ میلادی به شمسی
+// تابع کمکی برای تبدیل تاریخ به شمسی (با فرمت استاندارد)
 // ================================================================
 function toPersianDate(dateStr) {
-    if (!dateStr || dateStr === '-' || dateStr.trim() === '') return '-';
+    if (!dateStr || dateStr.trim() === '') return '';
     try {
         const d = new Date(dateStr);
-        // اگر تاریخ نامعتبر بود، خودش را برگردان
-        if (isNaN(d.getTime())) return dateStr; 
-        return d.toLocaleDateString('fa-IR', { 
-            year: 'numeric', 
-            month: '2-digit', 
-            day: '2-digit' 
-        });
+        if (isNaN(d.getTime())) return dateStr; // اگر تاریخ نامعتبر بود، خودش را برگردان
+        return d.toLocaleDateString('fa-IR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).replace(/\//g, '/'); // جایگزین کردن جداکننده به اسلش
     } catch {
         return dateStr;
     }
 }
 
 // ================================================================
-// 7. خروجی CSV (نسخه‌ی اصلاح‌شده با تاریخ شمسی یکدست)
+// 7. خروجی CSV استاندارد (سازگار با اکسل فارسی)
 // ================================================================
 function exportCSV() {
     let data = JSON.parse(localStorage.getItem('reservations')) || [];
-    if (!data.length) return alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+    if (!data.length) {
+        alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+        return;
+    }
 
-    let csv = '\uFEFF'; // BOM برای نمایش صحیح فارسی
-    csv += 'نام,تلفن,تاریخ ورود,تاریخ خروج,تعداد مهمان,تاریخ ثبت\n';
+    // 1. تعریف هدر ستون‌ها (به ترتیب درست)
+    const headers = ['نام', 'تلفن', 'تاریخ ورود', 'تاریخ خروج', 'تعداد مهمان', 'تاریخ ثبت'];
     
+    // 2. ساخت محتوای CSV
+    let rows = [];
+    // اضافه کردن هدر
+    rows.push(headers.join(','));
+
+    // اضافه کردن هر ردیف داده
     data.forEach(item => {
-        // تبدیل تاریخ ثبت به شمسی
-        let regDate = '-';
+        // تبدیل تاریخ‌ها به شمسی
+        const checkin = toPersianDate(item.checkin);
+        const checkout = toPersianDate(item.checkout);
+        
+        let regDate = '';
         if (item.createdAt) {
             const d = new Date(item.createdAt);
             if (!isNaN(d.getTime())) {
-                regDate = d.toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                regDate = d.toLocaleDateString('fa-IR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
             }
         }
 
-        // 🔥 تغییر اینجا: تاریخ ورود و خروج را هم با تابع toPersianDate شمسی می‌کنیم
-        const checkinPersian = toPersianDate(item.checkin);
-        const checkoutPersian = toPersianDate(item.checkout);
-
-        csv += `${item.name || ''},${item.phone || ''},${checkinPersian},${checkoutPersian},${item.guests || ''},${regDate}\n`;
+        // ستون‌ها را به همان ترتیب هدر می‌چینیم
+        const row = [
+            item.name || '',
+            item.phone || '',
+            checkin,
+            checkout,
+            item.guests || '',
+            regDate
+        ];
+        
+        // هر مقدار را در صورت نیاز داخل کوتیشن می‌بریم (برای جلوگیری از مشکل کاما)
+        const escapedRow = row.map(cell => {
+            if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"') || cell.includes('\n'))) {
+                return `"${cell.replace(/"/g, '""')}"`;
+            }
+            return cell;
+        });
+        
+        rows.push(escapedRow.join(','));
     });
 
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // 3. تبدیل به رشته با خط جدید استاندارد (CRLF برای ویندوز)
+    const csvString = rows.join('\r\n');
+    
+    // 4. اضافه کردن BOM برای UTF-8 (برای نمایش صحیح فارسی در اکسل)
+    const blob = new Blob(['\uFEFF' + csvString], { 
+        type: 'text/csv;charset=utf-8;' 
+    });
+
+    // 5. دانلود فایل
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    link.href = url;
     link.download = `گزارش_رزروها_${new Date().toLocaleDateString('fa-IR').replace(/\//g, '_')}.csv`;
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(link.href);
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
 }
 
         // ================================================================
