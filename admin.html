@@ -465,26 +465,58 @@
         }
 
         // ================================================================
-        // 7. خروجی CSV (سازگار با اکسل فارسی)
-        // ================================================================
-        function exportCSV() {
-            let data = JSON.parse(localStorage.getItem('reservations')) || [];
-            if (!data.length) return alert('هیچ داده‌ای برای خروجی وجود ندارد.');
+// تابع کمکی برای تبدیل هر تاریخ میلادی به شمسی
+// ================================================================
+function toPersianDate(dateStr) {
+    if (!dateStr || dateStr === '-' || dateStr.trim() === '') return '-';
+    try {
+        const d = new Date(dateStr);
+        // اگر تاریخ نامعتبر بود، خودش را برگردان
+        if (isNaN(d.getTime())) return dateStr; 
+        return d.toLocaleDateString('fa-IR', { 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit' 
+        });
+    } catch {
+        return dateStr;
+    }
+}
 
-            let csv = '\uFEFF'; // BOM برای نمایش صحیح فارسی
-            csv += 'نام,تلفن,تاریخ ورود,تاریخ خروج,تعداد مهمان,تاریخ ثبت\n';
-            data.forEach(item => {
-                const regDate = item.createdAt ? new Date(item.createdAt).toLocaleDateString('fa-IR') : '-';
-                csv += `${item.name || ''},${item.phone || ''},${item.checkin || ''},${item.checkout || ''},${item.guests || ''},${regDate}\n`;
-            });
+// ================================================================
+// 7. خروجی CSV (نسخه‌ی اصلاح‌شده با تاریخ شمسی یکدست)
+// ================================================================
+function exportCSV() {
+    let data = JSON.parse(localStorage.getItem('reservations')) || [];
+    if (!data.length) return alert('هیچ داده‌ای برای خروجی وجود ندارد.');
 
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `گزارش_رزروها_${new Date().toLocaleDateString('fa-IR')}.csv`;
-            link.click();
-            URL.revokeObjectURL(link.href);
+    let csv = '\uFEFF'; // BOM برای نمایش صحیح فارسی
+    csv += 'نام,تلفن,تاریخ ورود,تاریخ خروج,تعداد مهمان,تاریخ ثبت\n';
+    
+    data.forEach(item => {
+        // تبدیل تاریخ ثبت به شمسی
+        let regDate = '-';
+        if (item.createdAt) {
+            const d = new Date(item.createdAt);
+            if (!isNaN(d.getTime())) {
+                regDate = d.toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            }
         }
+
+        // 🔥 تغییر اینجا: تاریخ ورود و خروج را هم با تابع toPersianDate شمسی می‌کنیم
+        const checkinPersian = toPersianDate(item.checkin);
+        const checkoutPersian = toPersianDate(item.checkout);
+
+        csv += `${item.name || ''},${item.phone || ''},${checkinPersian},${checkoutPersian},${item.guests || ''},${regDate}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `گزارش_رزروها_${new Date().toLocaleDateString('fa-IR').replace(/\//g, '_')}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
 
         // ================================================================
         // بارگذاری اولیه
